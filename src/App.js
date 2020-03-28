@@ -1,25 +1,53 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
+import Landing from './pages/Landing';
+import Match from './pages/Match';
+import Chat from './pages/Chat';
+import Profile from './pages/Profile';
+import Nav from './components/Nav';
+
+// import './App.css';
+import theme from './theme';
+
+const ErrorPage = (props) => {
+  return(
+    <h1>404: Page not found</h1>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CssBaseline/>
+      <MuiThemeProvider
+        theme={theme}
+      >
+        <Nav/>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Landing/>
+            </Route>
+            <Route exact path="/profile">
+              <Profile/>
+            </Route>
+            <Route exact path="/chat">
+              <Chat/>
+            </Route>
+            <Route exact path="/match">
+              <Match/>
+            </Route>
+            <Route>
+              <ErrorPage/>
+            </Route>
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
+    </>
   );
 }
 
