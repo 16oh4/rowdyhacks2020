@@ -6,7 +6,6 @@ export default class CategoryView extends Component {
         this.state = {
             categories: [],
             currentIndex: 0,
-
         }
         console.log(this.props);
     }
