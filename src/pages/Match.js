@@ -1,10 +1,15 @@
 import React from 'react';
-
+import  CategoryView  from "../components/CategoryView";
 export default class Match extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            games: []
+            games: [{
+                "name": "",
+                "image": "",
+                "genres": ""
+            }],
+            currentIndex: 0,
         }
     }
     getGames(){
@@ -27,27 +32,14 @@ export default class Match extends React.Component{
                     games: gamesData
                 })
             })
-
     }
     componentDidMount(){
         this.getGames();
     }
     
     render(){
-        const games = this.state.games;
-        const items = games.map((item)=>{
-            return( <div>
-                <img style={{width: 100, height: 100}}src={item.image}/>
-                <h1>
-                    {item.name}
-                </h1>
-            </div>
-            )
-        });
         return (
-            <div>
-                {items}
-            </div>
+            <CategoryView categories={this.state.games} currentIndex={this.state.currentIndex} />
         )
     }
 }
