@@ -7,6 +7,8 @@ import {
   FirebaseAppProvider
 } from 'reactfire';
 
+import 'firebase/auth';
+
 // import * as serviceWorker from './serviceWorker';
 
 // const firebaseConfig = {

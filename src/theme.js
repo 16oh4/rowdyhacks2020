@@ -21,7 +21,12 @@ const styles = {
     backgroundColor: palette.containerColor
   },
   typography: {
-    color: palette.primary.main
+    color: palette.primary.main,
+    textAlign: 'center'
+  },
+  typographyButton: {
+    color: palette.primary.main,
+    textTransform: 'capitalize'
   },
   grid: {
     display: 'flex',
@@ -31,11 +36,15 @@ const styles = {
   },
   button: {
     backgroundColor: '#4169E1',
-    '& Typography': {
-      color: 'white',
-      textTransform: 'capitalize'
-    }
+  },
+  textField: {
+
+    // Error text
+    '& .MuiFormHelperText-root': {
+      color: 'black'
+    },
   }
+
 };
 
 export default createMuiTheme({
