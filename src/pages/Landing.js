@@ -43,7 +43,7 @@ export default (props) => {
         >
           <h2 className={classes.title}>Let{"'"}s talk about COVID-19</h2>
           <h5 className={classes.description}>
-            This is where the women and men can come together to get started with dating.
+            Social distancing is more important now than ever! Quaranchill is the best place to connect with people who have more in common than you think.
           </h5>
         </Grid>
       </Grid>
