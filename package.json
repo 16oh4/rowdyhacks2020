@@ -8,13 +8,16 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
     "firebase": "^7.13.1",
     "libphonenumber-js": "^1.7.48",
     "react": "0.0.0-experimental-aae83a4b9",
     "react-dom": "0.0.0-experimental-aae83a4b9",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "reactfire": "^2.0.3"
+    "reactfire": "^2.0.3",
+    "sweetalert2": "^9.10.7",
+    "sweetalert2-react-content": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-team1604-e68a9.cloudfunctions.net/api"
+  "proxy": "http://localhost:5001/team1604-e68a9/us-central1/api"
 }

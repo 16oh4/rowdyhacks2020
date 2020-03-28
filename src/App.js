@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useRef,
+  useEffect
+} from 'react';
 // import logo from './logo.svg';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
@@ -12,8 +15,11 @@ import Signup from './pages/Signup';
 import Nav from './components/Nav';
 import Page from './pages/Page';
 
+import firebase from 'firebase/app';
+
 // import './App.css';
 import theme from './theme';
+import axios from 'axios';
 
 const ErrorPage = (props) => {
   return(
@@ -21,7 +27,23 @@ const ErrorPage = (props) => {
   )
 };
 
+// axios.defaults.baseURL = 'https://us-central1-team1604-e68a9.cloudfunctions.net/api';
+
 function App() {
+
+  const authObserver = useRef();
+
+  useEffect(() => {
+    authObserver.current = firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        console.log('Logged in');
+      }
+      else {
+        console.log('Logged out');
+      }
+    })
+  }, []);
+
   return (
     <>
       <CssBaseline/>
@@ -32,7 +54,7 @@ function App() {
           <Nav/>
           <Page>
             <Switch>
-              
+
                 <Route exact path="/">
                   <Landing/>
                 </Route>

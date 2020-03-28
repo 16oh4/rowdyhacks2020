@@ -4,6 +4,8 @@
 /functions/node_modules
 /functions/serviceAccountKey.json
 
+firebase-debug.log
+
 # dependencies
 /node_modules
 /.pnp
