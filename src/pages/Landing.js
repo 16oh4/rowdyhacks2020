@@ -7,7 +7,7 @@ import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
 import Grid  from "@material-ui/core/Grid";
-//import InfoArea from "../components/InfoArea/InfoArea.js";
+import InfoArea from "../components/InfoArea/InfoArea.js";
 
 
 const useStyles = makeStyles(({styles, palette}) => ({
@@ -47,37 +47,50 @@ export default (props) => {
           </h5>
         </Grid>
       </Grid>
+      <div>
       <Grid // 1 of 3
         container
+        justify = "center"
+        direction = "row"
       >
         <Grid
           item
           xs={12} sm={12} md={4}  
         >
-        <h1>Hello</h1>
+        <InfoArea
+            title="Babes"
+            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+            icon={Chat}
+            iconColor="info"
+            horizontal
+        />
         </Grid>
-      </Grid>
-      <Grid // 2 of 3
-        container 
-      >
         <Grid
           item
           xs={12} sm={12} md={4}  
         >
-        <h1>Hello</h1>
+        <InfoArea
+            title="Babes"
+            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+            icon={VerifiedUser}
+            iconColor="success"
+            horizontal
+        />
         </Grid>
-      </Grid>
-      <Grid // 3 of 3
-        container
-      >
         <Grid
           item
           xs={12} sm={12} md={4}  
         >
-         <h1>Hello</h1>
+        <InfoArea
+            title="Babes"
+            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+            icon={Fingerprint}
+            iconColor="danger"
+            horizontal
+        />
         </Grid>
       </Grid>
-
+      </div>
     </div>
     )
 }
