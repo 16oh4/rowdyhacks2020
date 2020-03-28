@@ -10,6 +10,7 @@ import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
+import Page from './pages/Page';
 
 // import './App.css';
 import theme from './theme';
@@ -29,32 +30,35 @@ function App() {
       >
         <Router>
           <Nav/>
-          <Switch>
-            <Route exact path="/">
-              <Landing/>
-            </Route>
+          <Page>
+            <Switch>
+              
+                <Route exact path="/">
+                  <Landing/>
+                </Route>
 
-            <Route exact path="/signup">
-              <Signup/>
-            </Route>
+                <Route exact path="/signup">
+                  <Signup/>
+                </Route>
 
-            <Route exact path="/chat">
-              <Chat/>
-            </Route>            
+                <Route exact path="/chat">
+                  <Chat/>
+                </Route>            
 
-            <Route exact path="/match">
-              <Match/>
-            </Route>
+                <Route exact path="/match">
+                  <Match/>
+                </Route>
 
-            <Route exact path="/profile">
-              <Profile/>
-            </Route>            
+                <Route exact path="/profile">
+                  <Profile/>
+                </Route>            
 
-            <Route>
-              <ErrorPage/>
-            </Route>
+                <Route>
+                  <ErrorPage/>
+                </Route>
 
-          </Switch>
+            </Switch>
+          </Page>
         </Router>
       </MuiThemeProvider>
     </>
