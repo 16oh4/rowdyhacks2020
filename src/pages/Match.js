@@ -8,6 +8,7 @@ export default class Match extends React.Component{
         }
     }
     getGames(){
+        var g = [];
         fetch('https://api.rawg.io/api/games?dates=2017-01-01,2019-12-31&ordering=-added')
             .then(res => {
                 return res.json();
@@ -22,16 +23,31 @@ export default class Match extends React.Component{
                         "genres": games[i].tags
                     });
                 }
-                return data
+                this.setState({
+                    games: gamesData
+                })
             })
+
     }
     componentDidMount(){
-        this.setState({games: this.getGames()})
+        this.getGames();
     }
+    
     render(){
-        console.log(this.state);
+        const games = this.state.games;
+        const items = games.map((item)=>{
+            return( <div>
+                <img style={{width: 100, height: 100}}src={item.image}/>
+                <h1>
+                    {item.name}
+                </h1>
+            </div>
+            )
+        });
         return (
-            <h1>Match</h1>
+            <div>
+                {items}
+            </div>
         )
     }
 }
