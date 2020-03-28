@@ -1,9 +1,13 @@
 import React, {
   useRef,
-  useEffect
+  useEffect,
+  Suspense,
+  useState
 } from 'react';
 // import logo from './logo.svg';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -32,14 +36,17 @@ const ErrorPage = (props) => {
 function App() {
 
   const authObserver = useRef();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     authObserver.current = firebase.auth().onAuthStateChanged(user => {
       if(user) {
         console.log('Logged in');
+        setLoggedIn(true);
       }
       else {
         console.log('Logged out');
+        setLoggedIn(false);
       }
     })
   }, []);
@@ -51,7 +58,13 @@ function App() {
         theme={theme}
       >
         <Router>
-          <Nav/>
+          <Suspense
+            fallback={<CircularProgress/>}
+          >
+            <Nav
+              loggedIn={loggedIn}
+            />
+          </Suspense>
           <Page>
             <Switch>
 
@@ -60,7 +73,9 @@ function App() {
                 </Route>
 
                 <Route exact path="/signup">
-                  <Signup/>
+                  <Signup
+                    loggedIn={loggedIn}
+                  />
                 </Route>
 
                 <Route exact path="/chat">

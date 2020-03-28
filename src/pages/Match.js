@@ -45,6 +45,7 @@ export default class Match extends React.Component{
                 return res.json();
             })
             .then(data => {
+                console.log(`Data:\n${JSON.stringify(data)}`);
                 var games = data.results;
                 var gamesData =[];
                 for(var i = 0; i < games.length; i++){
