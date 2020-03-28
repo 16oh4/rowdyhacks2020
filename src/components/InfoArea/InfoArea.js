@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
+// Makeup
+import infoStyle from "./infoStyle.jsx";
 
 const useStyles = makeStyles(({styles, palette}) => ({
     section: {
@@ -23,7 +26,7 @@ const useStyles = makeStyles(({styles, palette}) => ({
   
   }));
 
-export default function InfoArea(props) {
+function InfoArea({ ...props}) {
   const classes = useStyles();
   const { title, description, iconColor, vertical } = props;
   const iconWrapper = classNames({
@@ -67,3 +70,5 @@ InfoArea.propTypes = {
   ]),
   vertical: PropTypes.bool
 };
+
+export default withStyles(infoStyle)(InfoArea);

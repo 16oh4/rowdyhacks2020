@@ -62,7 +62,7 @@ export default (props) => {
             description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
             icon={Chat}
             iconColor="info"
-            horizontal
+            vertical
         />
         </Grid>
         <Grid
@@ -74,7 +74,7 @@ export default (props) => {
             description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
             icon={VerifiedUser}
             iconColor="success"
-            horizontal
+            vertical
         />
         </Grid>
         <Grid
@@ -86,10 +86,11 @@ export default (props) => {
             description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
             icon={Fingerprint}
             iconColor="danger"
-            horizontal
+            vertical
         />
         </Grid>
       </Grid>
+
       </div>
     </div>
     )
