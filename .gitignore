@@ -2,6 +2,7 @@
 
 /functions/firebase.js
 /functions/node_modules
+/functions/serviceAccountKey.json
 
 # dependencies
 /node_modules

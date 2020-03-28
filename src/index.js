@@ -9,6 +9,18 @@ import {
 
 // import * as serviceWorker from './serviceWorker';
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCO_OqdtITLxtHFA_A-uUsNOv5dwVWRkFQ",
+//   authDomain: "team1604-e68a9.firebaseapp.com",
+//   databaseURL: "https://team1604-e68a9.firebaseio.com",
+//   projectId: "team1604-e68a9",
+//   storageBucket: "team1604-e68a9.appspot.com",
+//   messagingSenderId: "912282882726",
+//   appId: "1:912282882726:web:529000285142d4547b9a67",
+//   measurementId: "G-FTCNPRZ3VV"
+// };
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyCO_OqdtITLxtHFA_A-uUsNOv5dwVWRkFQ",
   authDomain: "team1604-e68a9.firebaseapp.com",
@@ -16,9 +28,10 @@ const firebaseConfig = {
   projectId: "team1604-e68a9",
   storageBucket: "team1604-e68a9.appspot.com",
   messagingSenderId: "912282882726",
-  appId: "1:912282882726:web:529000285142d4547b9a67",
-  measurementId: "G-FTCNPRZ3VV"
+  appId: "1:912282882726:web:6e25c7ac88e927bc7b9a67",
+  measurementId: "G-Y29YXTSJKX"
 };
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
