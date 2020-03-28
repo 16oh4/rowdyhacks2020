@@ -1,10 +1,17 @@
 import React from 'react';
-
+import  CategoryView  from "../components/CategoryView";
+import cross from '../images/x.png';
+import heart from '../images/heart.png';
 export default class Match extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            games: []
+            games: [{
+                "name": "",
+                "image": "",
+                "genres": ""
+            }],
+            currentIndex: 0,
         }
     }
     getGames(){
@@ -27,26 +34,30 @@ export default class Match extends React.Component{
                     games: gamesData
                 })
             })
-
     }
     componentDidMount(){
         this.getGames();
     }
-    
+    onLikeClick = () =>{
+        var newIndex = this.state.currentIndex + 1
+        this.setState({
+            currentIndex: newIndex
+        })
+    }
+    onDislikeClick = () => {
+        var newIndex = this.state.currentIndex + 1
+        this.setState({
+            currentIndex: newIndex
+        })
+    }
     render(){
-        const games = this.state.games;
-        const items = games.map((item)=>{
-            return( <div>
-                <img style={{width: 100, height: 100}}src={item.image}/>
-                <h1>
-                    {item.name}
-                </h1>
-            </div>
-            )
-        });
         return (
             <div>
-                {items}
+                <CategoryView categories={this.state.games} currentIndex={this.state.currentIndex} />
+                <div style={{justifyContent: "center", display: "flex", flexDirection: "row"}}>
+                    <img style={{widht:100,height:100}} onClick={this.onDislikeClick} src={cross} alt='alternate'/>
+                    <img style={{widht:100,height:100}} onClick={this.onLikeClick} src={heart} alt='alternate'/>         
+                </div>
             </div>
         )
     }
