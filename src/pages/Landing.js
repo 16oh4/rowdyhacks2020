@@ -41,7 +41,7 @@ export default (props) => {
           item
           xs={12} sm={12} md={8}  
         >
-          <h2 className={classes.title}>Let{"'"}s talk about dating</h2>
+          <h2 className={classes.title}>Let{"'"}s talk about COVID-19</h2>
           <h5 className={classes.description}>
             This is where the women and men can come together to get started with dating.
           </h5>
