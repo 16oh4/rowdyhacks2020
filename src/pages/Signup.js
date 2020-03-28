@@ -43,9 +43,8 @@ export default (props) => {
     const phoneRegex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
     const history = useHistory();
-    const location = useLocation();
-
-    // if(location.pathname);
+    const {loggedIn} = props;
+    console.log(`Logged in signup: ${loggedIn}`)
 
     
     const handleSignup = (e) => {
@@ -67,6 +66,7 @@ export default (props) => {
         })
         .catch(error => {
             //TODO: handle user registered with alert
+            //TODO: SIGN IN USER INSTEAD
             reactSwal.fire({
                 html: alertHtml
             })
@@ -83,6 +83,7 @@ export default (props) => {
             .catch(error => {
                 console.log(error);
             })
+            setStage(1);
         })
     }
 
@@ -146,7 +147,7 @@ export default (props) => {
             })
             .catch(error => {
                 console.log(error);
-            })
+            });
         }
         catch(error) {
             setActivationCodeError('Some error occurred. Try again!');
@@ -312,6 +313,36 @@ export default (props) => {
         </>
     );
 
+    let stageTwo = (
+        <>
+            <Grid
+                item
+                xs={12}
+            >
+                <Typography
+                    className={classes.typography}
+                >
+                    You're logged in! Please proceed to the app.
+                </Typography>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <Button
+                    onClick={() => history.push('/match')}
+                    className={classes.button}
+                >
+                    <Typography
+                        className={classes.typographyButton}
+                    >
+                        Enter!
+                    </Typography>
+                </Button>
+            </Grid>
+        </>
+    )
+
     return (
         <RowCreator>
             <ColumnCreator
@@ -325,8 +356,14 @@ export default (props) => {
                         spacing={1}
                         className={classes.grid}
                     >
-                        {stage === 0 && stageZero}
-                        {stage === 1 && stageOne}
+                        {loggedIn ? (
+                            stageTwo
+                        ): (
+                            <>
+                                {stage === 0 && stageZero}
+                                {stage === 1 && stageOne}
+                            </>
+                        )}
                     </Grid>
                 </BlockCreator>
             </ColumnCreator>
