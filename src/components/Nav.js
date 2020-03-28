@@ -12,42 +12,65 @@ import AccountIcon from '@material-ui/icons/AccountCircle';
 import MessageIcon from '@material-ui/icons/Message';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import HomeIcon from '@material-ui/icons/Home';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(({palette, styles}) => createStyles({
     ...styles,
     toolBar: {
-        flexDirection: 'center'
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     appBar: {
-        backgroundColor: palette.primary.main,
+        backgroundColor: palette.secondary.main,
         flexDirection: 'center'
     }
 }));
 
 export default () => {
     const classes = useStyles();
+    const history = useHistory();
 
     return(
         <AppBar
             className={classes.appBar}
+            position="sticky"
         >
             <Toolbar
                 className={classes.toolBar}
             >
-                <IconButton>
-                    <AccountIcon/>
+                <IconButton
+                    onClick={() => history.push('/')}
+                >
+                    <HomeIcon/>
                 </IconButton>
-                <IconButton>
-                    <MessageIcon/>
-                </IconButton>
-                <IconButton>
+
+                <IconButton
+                    onClick={() => history.push('/signup')}
+                >
                     <AssignmentIcon/>
                 </IconButton>
-                <IconButton>
+
+                <IconButton
+                    onClick={() => history.push('/chat')}
+                >
+                    <MessageIcon/>
+                </IconButton>
+
+                <IconButton
+                    onClick={() => history.push('/match')}
+                >
                     <PersonAddIcon/>
                 </IconButton>
+
+                <IconButton
+                    onClick={() => history.push('/profile')}
+                >
+                    <AccountIcon/>
+                </IconButton>
+
             </Toolbar>
         </AppBar>
     )
