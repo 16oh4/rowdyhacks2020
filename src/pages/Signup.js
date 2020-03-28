@@ -13,7 +13,7 @@ const useStyles = makeStyles(({styles, palette}) => ({
 
 export default (props) => {
     const classes = useStyles();
-    const [fields, setFields] = useState()
+    // const [fields, setFields] = useState()
     return (
         <RowCreator>
             <ColumnCreator
@@ -28,7 +28,7 @@ export default (props) => {
                         Quaranchill
                     </Typography>
                     <TextField
-                        value={value}
+                        // value={value}
                     />
                 </BlockCreator>
             </ColumnCreator>
