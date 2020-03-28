@@ -18,6 +18,8 @@ import swal2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import { useHistory } from 'react-router-dom';
 
 const reactSwal = withReactContent(swal2);
@@ -46,7 +48,9 @@ export default (props) => {
 
     const history = useHistory();
     const {loggedIn} = props;
-    console.log(`Logged in signup: ${loggedIn}`)
+    // console.log(`Logged in signup: ${loggedIn}`)
+
+    console.log(`FIRST TIME:\n${firstTime}`);
 
     
     const handleSignup = (e) => {
@@ -66,28 +70,13 @@ export default (props) => {
             console.log('User can register');
             setStage(1);
             setFirstTime(true)
+            console.log('first time' + firstTime);
         })
         .catch(error => {
-            //TODO: handle user registered with alert
-            //TODO: SIGN IN USER INSTEAD
-            reactSwal.fire({
-                html: alertHtml
-            })
-            .then(result => {
-                // user clicked ok
-                if(result.value) {
-
-                }
-                // user clicked away or cancel
-                else {
-
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+            
             setStage(1);
             setFirstTime(false);
+            console.log('first time' + firstTime);
         })
     }
 
@@ -125,8 +114,7 @@ export default (props) => {
                 <Typography
                     className={classes.typography}
                 >
-                    Successfully registered!
-                    You will now be redirected.
+                    Logged in! You will now be redirected.
                 </Typography>
             </>
         );
@@ -148,7 +136,7 @@ export default (props) => {
             console.log(error);
         }
 
-        if(firstTime) {
+        if(!firstTime) {
             reactSwal.fire({
                 html: alertHtml
             })
@@ -159,13 +147,29 @@ export default (props) => {
                 console.log(error);
                 history.push('/match');
             })
-        } else if(!firstTime) {
-            // const userData = {
-            //     phoneNumber: parsedPhoneNumber,
-            //     createdAt: new Date().toISOString(),
-            //     likes: []
-            // }
-            // firebase.firestore().collection('users').doc()
+        } else if(firstTime) {
+            const userData = {
+                phoneNumber: parsedPhoneNumber,
+                createdAt: new Date().toISOString(),
+                likes: []
+            };
+            
+            firebase.firestore().collection('users').add(userData)
+            .then(() => {
+                reactSwal.fire({
+                    html: alertHtml
+                })
+                .then(result => {
+                    history.push('/match');
+                })
+                .catch(error => {
+                    console.log(error);
+                    history.push('/match');
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
         
     }

@@ -45,10 +45,12 @@ exports.checkPhoneNumber = async (req, res) => {
     admin.auth().getUserByPhoneNumber(parsedNum)
     .then(userRecord => {
         console.log(JSON.stringify(userRecord));
-        return res.status(400).send(errJSON('User already exists', error));
+        console.log('USER EXISTS\n');
+        return res.status(400).send(errJSON('User already exists', {}));
     })
     .catch(error => {
-        // console.log(error);
+        console.log(error);
+        console.log('USER !EXISTS\n');
         return res.status(200).send(sucJSON('User does not exist', error));
     });
 }
