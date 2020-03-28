@@ -40,6 +40,8 @@ export default (props) => {
 
     const [stage, setStage] = useState(0);
 
+    const [firstTime, setFirstTime] = useState(null);
+
     const phoneRegex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
     const history = useHistory();
@@ -63,6 +65,7 @@ export default (props) => {
         .then(res => {
             console.log('User can register');
             setStage(1);
+            setFirstTime(true)
         })
         .catch(error => {
             //TODO: handle user registered with alert
@@ -84,6 +87,7 @@ export default (props) => {
                 console.log(error);
             })
             setStage(1);
+            setFirstTime(false);
         })
     }
 
@@ -115,7 +119,7 @@ export default (props) => {
 
     }
 
-    const handleActivationCode = () => {
+    const handleActivationCode = async () => {
         let alertHtml = (
             <>
                 <Typography
@@ -131,28 +135,39 @@ export default (props) => {
             console.log(`Activation Code:\n${activationCode}`);
             console.log(`Verification Code:\n${verificationID}`);
             phoneCredentialRef.current = firebase.auth.PhoneAuthProvider.credential(verificationID, activationCode);
-
-            firebase.auth().signInWithCredential(phoneCredentialRef.current)
-            .then(userCredential => {
-                reactSwal.fire({
-                    html: alertHtml
-                })
-                .then(result => {
-                    history.push('/match');
-                })
-                .catch(error => {
-                    console.log(error);
-                    history.push('/match');
-                })
-            })
-            .catch(error => {
-                console.log(error);
-            });
         }
         catch(error) {
             setActivationCodeError('Some error occurred. Try again!');
             console.log(error);
         }
+
+        try {
+            await firebase.auth().signInWithCredential(phoneCredentialRef.current)
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        if(firstTime) {
+            reactSwal.fire({
+                html: alertHtml
+            })
+            .then(result => {
+                history.push('/match');
+            })
+            .catch(error => {
+                console.log(error);
+                history.push('/match');
+            })
+        } else if(!firstTime) {
+            // const userData = {
+            //     phoneNumber: parsedPhoneNumber,
+            //     createdAt: new Date().toISOString(),
+            //     likes: []
+            // }
+            // firebase.firestore().collection('users').doc()
+        }
+        
     }
 
     const handlePhoneNumber = (e) => {
