@@ -43,6 +43,9 @@ export default (props) => {
     const phoneRegex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
     const history = useHistory();
+    const location = useLocation();
+
+    // if(location.pathname);
 
     
     const handleSignup = (e) => {
