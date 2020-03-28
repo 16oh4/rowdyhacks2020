@@ -25,7 +25,6 @@ const useStyles = makeStyles(({palette, styles}) => createStyles({
     },
     appBar: {
         backgroundColor: palette.secondary.main,
-        flexDirection: 'center'
     }
 }));
 
