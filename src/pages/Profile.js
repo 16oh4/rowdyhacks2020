@@ -19,6 +19,8 @@ import {
     useHistory
 } from 'react-router-dom';
 
+import firebase from 'firebase/app';
+
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -82,14 +84,14 @@ export default (props) => {
     });
 
     const initCheckLikes =  docData.likes.length > 10 ? (
-        docData.likes.slice(0, 10) || console.log('here')
-    ) : docData.likes || console.log('here');
+        docData.likes.slice(0, 10)
+    ) : docData.likes;
 
-    console.log(`Init Check Likes:\n${initCheckLikes}`);
+    // console.log(`Init Check Likes:\n${initCheckLikes}`);
 
     const [checkLikes, setCheckLikes] = useState(initCheckLikes);
 
-    console.log(`Check Likes:\n${checkLikes}`);
+    // console.log(`Check Likes:\n${checkLikes}`);
 
 
     const matchesColRef = useFirestore()
@@ -106,13 +108,14 @@ export default (props) => {
     .collection('chats')
     .where('users', 'array-contains', user.uid);
 
-    const chatsColData = useFirestore(chatsColRef, {
+    const chatsColData = useFirestoreCollectionData(chatsColRef, {
         startWithvalue: [
             chatSchema
         ]
     })
 
-    console.log(`MATCHES:\n${JSON.stringify(matchesColData)}`);
+    console.log(`CHATS:\n${JSON.stringify(chatsColData)}`);
+    // console.log(`MATCHES:\n${JSON.stringify(matchesColData)}`);
 
     
 
@@ -337,15 +340,77 @@ export default (props) => {
     )
 
     const handleChat = (match) => {
-        history.push(`/chat/${match.uid}`);
+        // history.push(`/chat/${match.uid}`);
+
+        let foundMatch = false;
+        let foundChat;
+
+        chatsColData.every(chat => {
+            console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
+
+            chat.users.every(chatUser => {
+                if(chatUser === match.uid) {
+                    foundMatch = true;
+                    foundChat = chat;
+                    return false;
+                }
+            })
+            if(foundMatch) return false;
+
+            // if(chat.users[0] === user.uid || chat.users[1] === user.uid) {
+            //     console.log('Found user!');
+            //     foundUser = true;
+            // }
+            // if(chat.users[0] === user.uid || chat.users[1] === user.uid) {
+            //     console.log('Found match!');
+            //     foundMatch = true;
+            // }
+        })
+
+        // If this chat is already created, then redirect to chat page
+        if(foundMatch) {
+            console.log('Found it!');
+            console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
+            history.push(`/chat/${foundChat.id}`)
+        }
+        else { // create new chat
+            console.log('New chat!!');
+            const chatDoc = {
+                createdAt: new Date().toISOString(),
+
+            }
+            // firebase.firestore().collection('chats')
+            // .add()
+            // firebase.firestore()
+        }
+        // firebase.firestore().collection('chats')
+        // .where('users', 'array-contains', user.uid)
+        // .get()
+        // .then(querySnapshot => {
+        //     if(querySnapshot.empty) {
+        //         //CREATE NEW CHAT
+        //         console.log('EMPTY')
+        //     }
+        //     else{
+        //         querySnapshot.forEach((docSnapshot, index) => {
+        //             if(docSnapshot.exists) {
+        //                 console.log('Empty snapshot at index: ' + index);
+        //             }
+        //             else {
+        //                 console.log(`DOC SNAPSHOT:\n${JSON.stringify(docSnapshot.data)}`)
+        //             }
+        //         })
+        //     }
+        // })
+        // .catch(error => console.log(error))
     }
 
     const getMatches = () => {
         let listItemArr = [];
 
         matchesColData.forEach(match => {
-            console.log(match.uid)
-            console.log(user.uid);
+            // console.log(match.uid)
+            // console.log(user.uid);
             if(match.uid !== user.uid)
                 listItemArr.push(
                     <ListItem
