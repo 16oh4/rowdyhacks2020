@@ -117,7 +117,26 @@ export default (props) => {
             }))
         })        
     }
+    const getMusic = () => {
+        fetch('http://api.deezer.com/editorial/0/charts')
+        .then(res => {
+                return res.json();
+            })
+            .then(data => {
 
+                const musicData = data.Search.map(music => ({
+                    name: music.title,
+                    image: music.picture_big
+                }));
+
+                console.log(`musics data:\n${musicData}`);
+
+                setState(prevState => ({
+                    ...prevState,
+                    musics: musicData
+                }))
+            })
+    }
     const getGames = () => {
         setLoading(true);
         fetch(state.gamesURI)
