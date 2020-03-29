@@ -238,7 +238,7 @@ export default (props) => {
                     variant="body1"
                     className={classes.typography}
                 >
-                    Signup using a US phone number
+                    Enter with a US phone number
                 </Typography>
             </Grid>
             <Grid
