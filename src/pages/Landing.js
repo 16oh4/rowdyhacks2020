@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 // @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
-import VerifiedUser from "@material-ui/icons/VerifiedUser";
+import Favorite from "@material-ui/icons/Chat";
+import EmojiPeople from "@material-ui/icons/VerifiedUser";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
 import Grid  from "@material-ui/core/Grid";
@@ -58,9 +58,9 @@ export default (props) => {
           xs={12} sm={12} md={4}  
         >
         <InfoArea
-            title="Babes"
-            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-            icon={Chat}
+            title="Select from a database of movies and music to match with other people who share the same interests as you!"
+            description=""
+            icon={Favorite}
             iconColor="info"
             vertical
         />
@@ -70,9 +70,9 @@ export default (props) => {
           xs={12} sm={12} md={4}  
         >
         <InfoArea
-            title="Babes"
-            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-            icon={VerifiedUser}
+            title="Connect with people through direct messaging once matches have been made through common interests."
+            description=""
+            icon={EmojiPeople}
             iconColor="success"
             vertical
         />
@@ -82,8 +82,8 @@ export default (props) => {
           xs={12} sm={12} md={4}  
         >
         <InfoArea
-            title="Babes"
-            description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+            title="Text herer"
+            description=""
             icon={Fingerprint}
             iconColor="danger"
             vertical
