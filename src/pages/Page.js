@@ -30,11 +30,11 @@ const useStyles = makeStyles(({palette, styles}) => createStyles({
         get backgroundImage() {
             switch(props.pageLocation) {
                 case '/':
-                    return `url(${handsImage})`
+                    return `url(${womanPhoneImage})`
             }
         },
         backgroundSize: 'cover',
-        backgroundPosition: '30% 0%',
+        backgroundPosition: '30% 80%',
         backgroundAttachment: 'fixed'
         // backgroundPosition: ''
         // paddingBottm: '20px'

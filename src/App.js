@@ -59,7 +59,8 @@ function App() {
         container
         spacing={4}
         style={{
-          maxWidth: '100%'
+          maxWidth: '100%',
+          width: '100%'
         }}
       >
         <Grid
@@ -143,10 +144,6 @@ function App() {
             />
           </Suspense>
           <Page>
-            
-
-                
-
                 {/* <Route exact path="/signup">
                   <Signup
                     loggedIn={loggedIn}

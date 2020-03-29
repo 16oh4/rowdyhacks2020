@@ -109,22 +109,24 @@ export default (props) => {
 
     let newIcons = (
         <>
-            {/* <IconButton
+            <IconButton
                 onClick={() => history.push('/')}
             >
                 <HomeIcon/>
-            </IconButton> */}
+            </IconButton>
 
-            {/* <IconButton
+            <IconButton
                 onClick={() => history.push('/signup')}
             >
                 <AssignmentIcon/>
-            </IconButton> */}
-            <Button // Just the logo for now as a clickable
+            </IconButton>
+
+            {/* <Button // Just the logo for now as a clickable
                 onClick={() => history.push('/')}
             >
                 <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
-            </Button>
+            </Button> */}
+            <img style={{width:150,height:100}} src={logo} alt='alternate'/>
         </>
     )
 

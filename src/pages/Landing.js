@@ -48,14 +48,6 @@ export default (props) => {
           item
           xs={6} sm={12} md={8}
         >
-<<<<<<< HEAD
-          
-          
-          {/* <h5 className={classes.description}>
-            
-          </h5> */}
-=======
->>>>>>> 92d1ae5985975a8b23b6f8b104794703022b05fe
         </Grid>
       </Grid>
       <div>

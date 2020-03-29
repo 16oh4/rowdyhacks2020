@@ -279,6 +279,7 @@ export default (props) => {
                     className={classes.textField}
                 />
             </Grid>
+            <br/>
             <Grid
                 item
                 xs={12}
@@ -427,7 +428,12 @@ export default (props) => {
                         spacing={1}
                         className={classes.grid}
                     >
-                        <img style={{widht:150,height:100}} src={signInLogo} alt='alternate'/>
+                        <Grid
+                            item
+                            xs={12}
+                        >
+                            <img style={{width:150,height:100}} src={signInLogo} alt='alternate'/>
+                        </Grid>
                         
                         {loggedIn ? (
                             stageTwo
