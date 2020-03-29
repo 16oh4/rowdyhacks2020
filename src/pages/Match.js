@@ -83,9 +83,27 @@ export default (props) => {
 
     // console.log(docData);
     // console.log(user);
+    function shuffle(array) {
+        var currentIndex = array.length,
+            temporaryValue, randomIndex;
 
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
     const [state, setState] = useState({
-        games:[],
+        products:[],
         movies:[],
         currentIndex: 0,
         maxIndex: null,
@@ -95,87 +113,75 @@ export default (props) => {
         previousGamesURI: '',
     });
 
+    
     const [loading, setLoading] = useState(true);
 
-    const getMovies = (cat) => {
-        fetch('http://www.omdbapi.com/?apikey=db4ba746&s=' + cat)
+    const getRandom = () => {
+        setLoading(true);
+        var categories = ["starwars", 'batman', 'avengers']
+        var item = categories[Math.floor(Math.random() * categories.length)];
+        var moviesData
+        var musicData
+        fetch('http://www.omdbapi.com/?apikey=db4ba746&s=' + item)
         .then(res => {
             return res.json();
         })
         .then(data => {
 
-            const moviesData = data.Search.map(movie => ({
+            moviesData = data.Search.map(movie => ({
                 name: movie.Title,
                 image: movie.Poster
             }));
-
             console.log(`Movies data:\n${moviesData}`);
+            fetch('http://api.deezer.com/editorial/0/charts')
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                    musicData = data.tracks.data.map(music => ({
+                        name: music.title,
+                        image: music.artist.picture_big
+                    }));
+                    console.log(`musics data:\n${musicData}`);
+                    fetch(state.gamesURI)
+                        .then(res => {
+                            return res.json();
+                        })
+                        .then(data => {
 
-            setState(prevState => ({
-                ...prevState,
-                movies: moviesData
-            }))
-        })        
+                            console.log(data.count);
+                            console.log(data.next);
+                            console.log(data.previous);
+
+
+                            const games = data.results.map(game => ({
+                                name: game.name,
+                                image: game.background_image,
+                            }));
+                            var products = shuffle(games.concat(moviesData.concat(musicData)));
+                            console.log(products);
+                            // console.log(`GAMES DATA:\n${JSON.stringify(games)}`);
+                            
+                            setState(prevState => ({
+                                ...prevState,
+                                products,
+                                maxIndex: products.length,
+                                previousGamesURI: data.previous,
+                                gamesURI: data.next,
+                            }))
+
+                            setLoading(false);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            setLoading(false);
+                            // window.location.reload();
+                        })
+
+                })
+        })   
+
     }
-    const getMusic = () => {
-        fetch('http://api.deezer.com/editorial/0/charts')
-        .then(res => {
-                return res.json();
-            })
-            .then(data => {
-
-                const musicData = data.Search.map(music => ({
-                    name: music.title,
-                    image: music.picture_big
-                }));
-
-                console.log(`musics data:\n${musicData}`);
-
-                setState(prevState => ({
-                    ...prevState,
-                    musics: musicData
-                }))
-            })
-    }
-    const getGames = () => {
-        setLoading(true);
-        fetch(state.gamesURI)
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-
-            console.log(data.count);
-            console.log(data.next);
-            console.log(data.previous);
-
-
-            const games = data.results.map(game => ({
-                name: game.name,
-                slug: game.slug,
-                image: game.background_image,
-                genres: game.tags
-            }));
-
-
-            // console.log(`GAMES DATA:\n${JSON.stringify(games)}`);
-
-            setState(prevState => ({
-                ...prevState,
-                games,
-                maxIndex: games.length,
-                previousGamesURI: data.previous,
-                gamesURI: data.next,
-            }))
-
-            setLoading(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setLoading(false);
-            // window.location.reload();
-        })
-    };
 
     const updateLikes = (newLikes) => {
         setLoading(true);
@@ -203,12 +209,12 @@ export default (props) => {
             //         </Typography>
             //     )
             // })
-            getGames();
+            getRandom();
             newIndex = 0;
         }
 
 
-        let newLike = state.games[state.currentIndex];
+        let newLike = state.products[state.currentIndex];
         // console.log(`Liked game:\n${JSON.stringify(newLike.name)}`)
 
         // let prevLikes = docData.likes.slice(0);
@@ -251,7 +257,7 @@ export default (props) => {
 
     const onDislikeClick = () => {
         let newIndex = state.currentIndex + 1;
-        let currentDislike = state.games[state.currentIndex].name;
+        let currentDislike = state.products[state.currentIndex].name;
 
 
         if(newIndex === state.maxIndex) {
@@ -274,7 +280,7 @@ export default (props) => {
             //     }));
             // })
 
-            getGames();
+            getRandom();
             
         }
 
@@ -298,7 +304,7 @@ export default (props) => {
 
     useEffect(()=> {
         // console.log('USE EFFECT')
-        getGames();
+        getRandom();
         // setState(prevState => ({
         //     ...prevState,
         //     liked: docData.likes
@@ -332,14 +338,14 @@ export default (props) => {
                     classes={classes}
                 >
                     <img
-                        src={state.games[state.currentIndex]?.image}
+                        src={state.products[state.currentIndex]?.image}
                         className={classes.image}
                     />
                     <Typography
                         variant="body2"
                         className={classes.typography}
                     >
-                        {state.games[state.currentIndex]?.name}
+                        {state.products[state.currentIndex]?.name}
                     </Typography>
                 </BlockCreator>
 
