@@ -22,7 +22,7 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
 
 }));
 
-export default (props) => {
+/*export default (props) => {
     const user = useUser(undefined, {
         startWithValue: {
             uid: 'QUARANCHILL'
@@ -171,9 +171,9 @@ export default (props) => {
         markup
     )
 
-};
+};*/
 
-export class Match extends React.Component{
+export default class Match extends React.Component{
     constructor(props){
         super(props);
         this.state = {

@@ -207,11 +207,11 @@ export default (props) => {
         <AppBar
             className={classes.appBar}
             position="sticky"
+            style={{ background: 'transparent', boxShadow: 'none'}}
         >
             <Toolbar
                 className={classes.toolBar}
             >
-                
                 { loggedIn ? authIcons : newIcons }
                 <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
             </Toolbar>
