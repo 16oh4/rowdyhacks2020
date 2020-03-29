@@ -11,7 +11,7 @@ import {
 const useStyles = makeStyles(({palette, styles}) => createStyles({
     ...styles,
     page: (props) => ({
-        // backgroundColor: palette.background,
+        // backgroundColor: palette.background, test
         // position: 'relative',
         minHeight: '100vh',
         minWidth: '100%',
