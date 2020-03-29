@@ -46,13 +46,16 @@ export default (props) => {
       >
         <Grid
           item
-          xs={12} sm={12} md={8}
+          xs={6} sm={12} md={8}
         >
+<<<<<<< HEAD
           
           
           {/* <h5 className={classes.description}>
             
           </h5> */}
+=======
+>>>>>>> 92d1ae5985975a8b23b6f8b104794703022b05fe
         </Grid>
       </Grid>
       <div>
@@ -64,7 +67,7 @@ export default (props) => {
       >
         <Grid
           item
-          xs={12} sm={6} md={4}  
+          xs={6} sm={6} md={4}  
         >
         <InfoArea
             title="Match with other people who share the same interests as you!"
@@ -76,7 +79,7 @@ export default (props) => {
         </Grid>
         <Grid
           item
-          xs={12} sm={6} md={4}  
+          xs={6} sm={6} md={4}  
         >
         <InfoArea
             title="Connect with people through direct messaging."
@@ -87,7 +90,7 @@ export default (props) => {
         </Grid>
         <Grid
           item
-          xs={12} sm={6} md={4}  
+          xs={6} sm={6} md={4}  
         >
         <InfoArea
             title="Select from a database of movies and music!"
@@ -97,7 +100,6 @@ export default (props) => {
         />
         </Grid>
       </Grid>
-
       </div>
     </div>
     )

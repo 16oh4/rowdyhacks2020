@@ -3,27 +3,24 @@ import React, {
     useEffect,
     useRef
 } from 'react';
-
+// Default layouts
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { BlockCreator, RowCreator, ColumnCreator } from '../inc/PageCreator';
 import { parsePhoneNumber, ParseError } from 'libphonenumber-js';
 
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+// Components / @material-ui
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+// API / DB
 import axios from 'axios';
-
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-// @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
-import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Fingerprint from "@material-ui/icons/Fingerprint";
-// core components
-import InfoArea from "../components/InfoArea/InfoArea.js";
+// Images
+import signInLogo from '../images/signinLogo.png';
+
 
 import { useHistory } from 'react-router-dom';
 
@@ -176,7 +173,7 @@ export default (props) => {
                 displayName: '',
                 age: 23,
                 description: '',
-                city: 'San Antonio',
+                city: 'San Antonio', // Default city
                 uid: userCredential.user.uid
             };
             
@@ -254,8 +251,9 @@ export default (props) => {
         }
     }, [stage])
 
-    let stageZero = (
+    let stageZero = (/* Landing page prompt */
         <>
+
             <Grid
                 item
                 xs={12}
@@ -420,14 +418,16 @@ export default (props) => {
             <ColumnCreator
                 ratio={12}
             >
+                
                 <BlockCreator
                     classes={classes}
                 >
-                    <Grid
+                    <Grid /* Container for all conent on sign in page*/
                         container
                         spacing={1}
                         className={classes.grid}
                     >
+                        <img style={{widht:150,height:100}} src={signInLogo} alt='alternate'/>
                         
                         {loggedIn ? (
                             stageTwo
