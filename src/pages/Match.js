@@ -37,6 +37,8 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
     image: {
         backgroundSize: 'cover',
         maxWidth: '100%',
+        maxHeight: '40vh',
+        height: '40vh'
         // maxHeight: '200px'
     },
     likeDislike: {
@@ -139,18 +141,32 @@ export default (props) => {
         })
     };
 
+    const updateLikes = (newLikes) => {
+        setLoading(true);
+        
+        docRef.update({
+            likes: newLikes
+        })
+        .then(() => {
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     const onLikeClick = () => {
         let newIndex = state.currentIndex + 1;
 
         if(newIndex === state.maxIndex) {
             //TODO: fetch more results
-            reactSwal.fire({
-                html: (
-                    <Typography>
-                        You've reached the end! 
-                    </Typography>
-                )
-            })
+            // reactSwal.fire({
+            //     html: (
+            //         <Typography>
+            //             You've reached the end! 
+            //         </Typography>
+            //     )
+            // })
             newIndex = 0;
         }
 
@@ -158,18 +174,18 @@ export default (props) => {
         let newLike = state.games[state.currentIndex];
         // console.log(`Liked game:\n${JSON.stringify(newLike.name)}`)
 
-        let prevLikes = state.liked.slice(0);
+        let prevLikes = docData.likes.slice(0);
         let newLikes = [];
         let unique = true;
         
-        console.log(`PREV LIKES SLICED:\n${JSON.stringify(prevLikes)}`);
+        // console.log(`PREV LIKES SLICED:\n${JSON.stringify(prevLikes)}`);
         
         if(prevLikes.length === 0) {
             newLikes.push(newLike.name)
         }
         else {
             prevLikes.forEach((prevLike) => {
-                console.log(`Prev like ${prevLike}\nNew like ${newLike.name}\n`)
+                // console.log(`Prev like ${prevLike}\nNew like ${newLike.name}\n`)
                 if(prevLike === newLike.name) {
                     unique = false;
                     // return false;
@@ -183,13 +199,8 @@ export default (props) => {
                 newLikes = prevLikes;
             }
         }
-
-        
-        
-
-
-        console.log(`PREV LIKES:\n${JSON.stringify(prevLikes)}`);
-        console.log(`NEW LIKES:\n${JSON.stringify(newLikes)}`);
+        // console.log(`PREV LIKES:\n${JSON.stringify(prevLikes)}`);
+        // console.log(`NEW LIKES:\n${JSON.stringify(newLikes)}`);
 
         setState(prevState => ({
             ...prevState,
@@ -198,25 +209,65 @@ export default (props) => {
             // liked: [...state.liked, likedGame.name]
         }));
 
-        
-
+        updateLikes(newLikes);  
     }
 
     const onDislikeClick = () => {
         let newIndex = state.currentIndex + 1;
+        let currentDislike = state.games[state.currentIndex].name;
+
+
+        if(newIndex === state.maxIndex) {
+
+            newIndex = 0;
+
+            //TODO: fetch more results
+            // reactSwal.fire({
+            //     html: (
+            //         <Typography>
+            //             You've reached the end! 
+            //         </Typography>
+            //     )
+            // })
+            // .then(() => {
+            //     newIndex = 0;
+            //     setState(prevState => ({
+            //         ...prevState,
+            //         currentIndex: newIndex
+            //     }));
+            // })
+
+            
+        }
+
+        let newLikes = docData.likes.filter(value => {
+            if(value !== currentDislike) {
+                return true;
+            }
+            else if(value === currentDislike) {
+                return false;
+            }
+        });
+
 
         setState(prevState => ({
             ...prevState,
             currentIndex: newIndex
-        }));
+        }))
+
+        updateLikes(newLikes);   
     }
 
     useEffect(()=> {
+        console.log('USE EFFECT')
         getGames();
-        // getMovies("batman")
+        // setState(prevState => ({
+        //     ...prevState,
+        //     liked: docData.likes
+        // }));
     }, [])
 
-    console.log(`Liked state:\n${JSON.stringify(state.liked)}`);
+    console.log(`Liked state:\n${JSON.stringify(docData.likes)}`);
 
 
     const markup = (
