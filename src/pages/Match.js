@@ -179,6 +179,48 @@ export default (props) => {
                         })
 
                 })
+                .catch(error => {
+                    console.log(error);
+                    console.log(data.count);
+                    console.log(data.next);
+                    console.log(data.previous);
+
+                    fetch(state.gamesURI)
+                        .then(res => {
+                            return res.json();
+                        })
+                        .then(data => {
+
+                            console.log(data.count);
+                            console.log(data.next);
+                            console.log(data.previous);
+
+
+                            const games = data.results.map(game => ({
+                                name: game.name,
+                                image: game.background_image,
+                            }));
+                            var products = shuffle(games.concat(moviesData));
+                            console.log(products);
+                            // console.log(`GAMES DATA:\n${JSON.stringify(games)}`);
+
+                            setState(prevState => ({
+                                ...prevState,
+                                products,
+                                maxIndex: products.length,
+                                previousGamesURI: data.previous,
+                                gamesURI: data.next,
+                            }))
+
+                            setLoading(false);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            setLoading(false);
+                            // window.location.reload();
+                        })
+
+                })
         })   
 
     }
