@@ -53,8 +53,7 @@ function App() {
     })
   }, []);
 
-  const loggedOutRoutes = (
-    <Switch>
+  const landingRoute = (
     <Route exact path="/">
       <Grid
         container
@@ -86,11 +85,19 @@ function App() {
         </Grid>
       </Grid>
     </Route>
+  )
+
+  const loggedOutRoutes = (
+    <Switch>
+    {landingRoute}
     </Switch>
   )
 
   const loggedInRoutes = (
     <Switch>
+      
+      {landingRoute}
+
       <Route exact path="/chat/:chatID">
         <Suspense
           fallback={<CircularProgress/>}
