@@ -17,6 +17,7 @@ import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
+import Footer from './components/Footer/Footer';
 import Page from './pages/Page';
 
 import firebase from 'firebase/app';
@@ -106,6 +107,7 @@ function App() {
 
             </Switch>
           </Page>
+          <Footer/>     
         </Router>
       </MuiThemeProvider>
     </>

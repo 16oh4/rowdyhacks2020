@@ -20,6 +20,13 @@ import withReactContent from 'sweetalert2-react-content';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
+// @material-ui/icons
+import Chat from "@material-ui/icons/Chat";
+import VerifiedUser from "@material-ui/icons/VerifiedUser";
+import Fingerprint from "@material-ui/icons/Fingerprint";
+// core components
+import InfoArea from "../components/InfoArea/InfoArea.js";
+
 import { useHistory } from 'react-router-dom';
 
 const reactSwal = withReactContent(swal2);
@@ -27,6 +34,19 @@ const reactSwal = withReactContent(swal2);
 
 const useStyles = makeStyles(({styles, palette}) => ({
     ...styles,
+    section: {
+        padding: "70px 0",
+        textAlign: "center"
+      },
+      title: {
+        marginBottom: "1rem",
+        marginTop: "30px",
+        minHeight: "32px",
+        textDecoration: "none"
+      },
+      description: {
+        color: "#999"
+      }
 }));
 
 export default (props) => {
@@ -363,8 +383,35 @@ export default (props) => {
         </>
     )
 
+    let bufferText = ( //Will house contents of lol 
+        <div className={classes.section}>
+            <Grid // Intro to layout
+              container justify="center"
+              spacing={2}
+            >
+              <Grid // First col
+                item
+                sm={6}  
+              >
+                <Typography
+                    variant="h2"
+                    className={classes.typography}
+                >
+                    [Image here]
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <div>
+            </div>
+        </div>
+    )
+
     return (
         <RowCreator>
+            <ColumnCreator>
+                {bufferText}
+            </ColumnCreator>
             <ColumnCreator
                 ratio={12}
             >
@@ -376,6 +423,7 @@ export default (props) => {
                         spacing={1}
                         className={classes.grid}
                     >
+                        
                         {loggedIn ? (
                             stageTwo
                         ): (
@@ -384,9 +432,12 @@ export default (props) => {
                                 {stage === 1 && stageOne}
                             </>
                         )}
+                    
+
                     </Grid>
                 </BlockCreator>
             </ColumnCreator>
+            
         </RowCreator>
     )
 }
