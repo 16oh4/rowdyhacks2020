@@ -22,8 +22,16 @@ const useStyles = makeStyles(({styles, palette}) => ({
       },
       description: {
         color: "#999"
+      },
+      infoArea: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
+      },
+      descriptionWrapper: {
+        marginLeft: "15px"
       }
-  
+      
   }));
 
 function InfoArea({ ...props}) {
