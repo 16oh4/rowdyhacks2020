@@ -278,7 +278,7 @@ export default (props) => {
     }
 
     useEffect(()=> {
-        console.log('USE EFFECT')
+        // console.log('USE EFFECT')
         getGames();
         // setState(prevState => ({
         //     ...prevState,
@@ -299,7 +299,7 @@ export default (props) => {
     //     }
     // }, [state.currentIndex])
 
-    console.log(`Liked state:\n${JSON.stringify(docData.likes)}`);
+    // console.log(`Liked state:\n${JSON.stringify(docData.likes)}`);
 
 
     const markup = (

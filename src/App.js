@@ -43,22 +43,24 @@ function App() {
   useEffect(() => {
     authObserver.current = firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log('Logged in');
+        // console.log('Logged in');
         setLoggedIn(true);
       }
       else {
-        console.log('Logged out');
+        // console.log('Logged out');
         setLoggedIn(false);
       }
     })
   }, []);
 
-  const loggedOutRoutes = (
-    <Switch>
+  const landingRoute = (
     <Route exact path="/">
       <Grid
         container
         spacing={4}
+        style={{
+          maxWidth: '100%'
+        }}
       >
         <Grid
           item
@@ -83,13 +85,25 @@ function App() {
         </Grid>
       </Grid>
     </Route>
+  )
+
+  const loggedOutRoutes = (
+    <Switch>
+    {landingRoute}
     </Switch>
   )
 
   const loggedInRoutes = (
     <Switch>
+      
+      {landingRoute}
+
       <Route exact path="/chat/:chatID">
-        <Chat/>
+        <Suspense
+          fallback={<CircularProgress/>}
+        >
+          <Chat/>
+        </Suspense>
       </Route>            
 
       <Route exact path="/match">

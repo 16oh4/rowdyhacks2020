@@ -43,7 +43,16 @@ const styles = {
     '& .MuiFormHelperText-root': {
       color: 'black'
     },
-  }
+  },
+  listItemText: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+
+    '& .MuiTypography-root': {
+        color: palette.primary.main
+    }
+}
 
 };
 

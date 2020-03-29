@@ -64,7 +64,7 @@ export default (props) => {
     const history = useHistory();
 
     const {loggedIn} = props;
-    console.log(`Logged in: ${loggedIn}`);
+    // console.log(`Logged in: ${loggedIn}`);
 
 
     const handleSignout = () => {
@@ -73,18 +73,18 @@ export default (props) => {
             history.push('/');
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
         })
     }
 
 
     let authIcons = (
         <>
-            <IconButton
+            {/* <IconButton
                 onClick={() => history.push('/chat')}
             >
                 <MessageIcon/>
-            </IconButton>
+            </IconButton> */}
 
             <IconButton
                 onClick={() => history.push('/match')}
@@ -109,6 +109,17 @@ export default (props) => {
 
     let newIcons = (
         <>
+            {/* <IconButton
+                onClick={() => history.push('/')}
+            >
+                <HomeIcon/>
+            </IconButton> */}
+
+            {/* <IconButton
+                onClick={() => history.push('/signup')}
+            >
+                <AssignmentIcon/>
+            </IconButton> */}
             <Button // Just the logo for now as a clickable
                 onClick={() => history.push('/')}
             >

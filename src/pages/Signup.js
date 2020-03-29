@@ -67,7 +67,7 @@ export default (props) => {
     const {loggedIn} = props;
     // console.log(`Logged in signup: ${loggedIn}`)
 
-    console.log(`FIRST TIME:\n${firstTime}`);
+    // console.log(`FIRST TIME:\n${firstTime}`);
 
     
     const handleSignup = (e) => {
@@ -79,21 +79,21 @@ export default (props) => {
             </Typography>
         );
 
-        console.log('this is parsedPhoneNumber' + parsedPhoneNumber)
+        // console.log('this is parsedPhoneNumber' + parsedPhoneNumber)
         axios.post('/checkPhoneNumber', {
             phoneNumber: parsedPhoneNumber
         })
         .then(res => {
-            console.log('User can register');
+            // console.log('User can register');
             setStage(1);
             setFirstTime(true)
-            console.log('first time' + firstTime);
+            // console.log('first time' + firstTime);
         })
         .catch(error => {
             
             setStage(1);
             setFirstTime(false);
-            console.log('first time' + firstTime);
+            // console.log('first time' + firstTime);
         })
     }
 
@@ -138,8 +138,8 @@ export default (props) => {
         );
 
         try {
-            console.log(`Activation Code:\n${activationCode}`);
-            console.log(`Verification Code:\n${verificationID}`);
+            // console.log(`Activation Code:\n${activationCode}`);
+            // console.log(`Verification Code:\n${verificationID}`);
             phoneCredentialRef.current = firebase.auth.PhoneAuthProvider.credential(verificationID, activationCode);
         }
         catch(error) {
@@ -208,7 +208,7 @@ export default (props) => {
         else {
             try {
                 parsePhoneNum = parsePhoneNumber(phoneNumber, 'US').number;
-                console.log(parsePhoneNum);
+                // console.log(parsePhoneNum);
                 setParsedPhoneNumber(parsePhoneNum);
                 setPhoneNumberError(null);
             }
@@ -241,7 +241,7 @@ export default (props) => {
             case 0:
                 break;
             case 1:
-                console.log('in stage 1');
+                // console.log('in stage 1');
                 setupActivationCode();
                 break;
             case 2:

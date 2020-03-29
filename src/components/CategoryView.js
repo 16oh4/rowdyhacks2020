@@ -7,7 +7,7 @@ export default class CategoryView extends Component {
             categories: [],
             currentIndex: 0,
         }
-        console.log(this.props);
+        // console.log(this.props);
     }
     render() {
         const item = this.props.categories[this.props.currentIndex];

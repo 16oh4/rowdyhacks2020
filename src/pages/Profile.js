@@ -53,15 +53,6 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    listItemText: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-
-        '& .MuiTypography-root': {
-            color: palette.primary.main
-        }
-    }
 }));
 
 export default (props) => {
@@ -114,7 +105,7 @@ export default (props) => {
         ]
     })
 
-    console.log(`CHATS:\n${JSON.stringify(chatsColData)}`);
+    // console.log(`CHATS:\n${JSON.stringify(chatsColData)}`);
     // console.log(`MATCHES:\n${JSON.stringify(matchesColData)}`);
 
     
@@ -345,17 +336,25 @@ export default (props) => {
         let foundMatch = false;
         let foundChat;
 
-        chatsColData.every(chat => {
-            console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
+        setLoading(true);
 
-            chat.users.every(chatUser => {
+        chatsColData.forEach(chat => {
+            // console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
+
+            chat.users.forEach(chatUser => {
+                // console.log(`CURRENT CHATUSER: ${chatUser}`)
+                // console.log(`MATCH ID: ${match.uid}`)
                 if(chatUser === match.uid) {
+                    // console.log('chatuser===match.uid')
                     foundMatch = true;
                     foundChat = chat;
-                    return false;
+                    // return false;
                 }
             })
-            if(foundMatch) return false;
+            // if(foundMatch) {
+            //     console.log('returning from found match true');
+            //     return false;
+            // }
 
             // if(chat.users[0] === user.uid || chat.users[1] === user.uid) {
             //     console.log('Found user!');
@@ -369,48 +368,44 @@ export default (props) => {
 
         // If this chat is already created, then redirect to chat page
         if(foundMatch) {
-            console.log('Found it!');
-            console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
+            // console.log('Found it!');
+            // console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
+            setLoading(false);
             history.push(`/chat/${foundChat.id}`)
         }
         else { // create new chat
-            console.log('New chat!!');
+            // console.log('New chat!!');
+            
+            // console.log(`USER:\n${user.}`)
             const chatDoc = {
                 createdAt: new Date().toISOString(),
-
+                id: `${match.uid}${user.uid}`,
+                users: [match.uid, user.uid],
+                displayNames: {
+                    [match.uid]: match.displayName,
+                    [user.uid]: docData.displayName
+                }
             }
-            // firebase.firestore().collection('chats')
-            // .add()
-            // firebase.firestore()
+
+            // console.log(JSON.stringify(chatDoc));
+            
+            firebase.firestore().collection('chats').doc(chatDoc.id)
+            .set(chatDoc)
+            .then(() => {
+                setLoading(false);
+                history.push(`/chat/${chatDoc.id}`);
+            })
+            .catch(error => {
+                setLoading(false);
+            })
         }
-        // firebase.firestore().collection('chats')
-        // .where('users', 'array-contains', user.uid)
-        // .get()
-        // .then(querySnapshot => {
-        //     if(querySnapshot.empty) {
-        //         //CREATE NEW CHAT
-        //         console.log('EMPTY')
-        //     }
-        //     else{
-        //         querySnapshot.forEach((docSnapshot, index) => {
-        //             if(docSnapshot.exists) {
-        //                 console.log('Empty snapshot at index: ' + index);
-        //             }
-        //             else {
-        //                 console.log(`DOC SNAPSHOT:\n${JSON.stringify(docSnapshot.data)}`)
-        //             }
-        //         })
-        //     }
-        // })
-        // .catch(error => console.log(error))
+
     }
 
     const getMatches = () => {
         let listItemArr = [];
 
         matchesColData.forEach(match => {
-            // console.log(match.uid)
-            // console.log(user.uid);
             if(match.uid !== user.uid)
                 listItemArr.push(
                     <ListItem
@@ -454,7 +449,7 @@ export default (props) => {
                 ratio={12}
             >
                 {profileBlock}
-                {matchesBlock}
+                {loading ? <CircularProgress/> : matchesBlock}
             </ColumnCreator>
         </RowCreator>
     )
