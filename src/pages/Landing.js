@@ -68,6 +68,7 @@ export default (props) => {
         >
         <InfoArea
             title="Match with other people who share the same interests as you!"
+            description=""
             icon={Favorite}
             iconColor="info"
             vertical
@@ -80,6 +81,7 @@ export default (props) => {
         >
         <InfoArea
             title="Connect with people through direct messaging."
+            description=""
             icon={EmojiPeople}
             iconColor="success"
             vertical
@@ -91,6 +93,7 @@ export default (props) => {
         >
         <InfoArea
             title="Select from a database of movies and music!"
+            description=""
             icon={Theatres}
             iconColor="danger"
             vertical
