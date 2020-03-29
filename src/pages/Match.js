@@ -140,7 +140,7 @@ export default (props) => {
                 .then(data => {
                     musicData = data.tracks.data.map(music => ({
                         name: music.title,
-                        image: music.artist.picture_big
+                        image: music.album.cover_big
                     }));
                     console.log(`musics data:\n${musicData}`);
                     fetch(state.gamesURI)
