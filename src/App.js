@@ -33,7 +33,7 @@ const ErrorPage = (props) => {
   )
 };
 
-// axios.defaults.baseURL = 'https://us-central1-team1604-e68a9.cloudfunctions.net/api';
+axios.defaults.baseURL = 'https://us-central1-team1604-e68a9.cloudfunctions.net/api';
 
 function App() {
 
@@ -95,7 +95,7 @@ function App() {
 
   const loggedInRoutes = (
     <Switch>
-      
+
       {landingRoute}
 
       <Route exact path="/chat/:chatID">

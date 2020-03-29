@@ -42,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5001/team1604-e68a9/us-central1/api"
+  "proxy": "https://us-central1-team1604-e68a9.cloudfunctions.net/api"
 }
