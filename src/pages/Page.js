@@ -3,7 +3,6 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {useDeviceScales, getScaledProperty} from '../inc/styleFunc';
 
 import womanPhoneImage from '../images/womanPhone.jpg';
-import handsImage from '../images/backgroundqc.png';
 
 import {
     useLocation
@@ -12,7 +11,7 @@ import {
 const useStyles = makeStyles(({palette, styles}) => createStyles({
     ...styles,
     page: (props) => ({
-        // backgroundColor: palette.background,
+        // backgroundColor: palette.background, test
         // position: 'relative',
         minHeight: '100vh',
         minWidth: '100%',
@@ -47,7 +46,7 @@ export default (props) => {
     const classes = useStyles({
         pageLocation: location.pathname
     });
-    
+
     return (
         <>
             <div
@@ -55,7 +54,7 @@ export default (props) => {
             >
                 {props.children}
             </div>
-            
+
         </>
     )
 }

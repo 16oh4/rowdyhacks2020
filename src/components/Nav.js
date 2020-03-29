@@ -16,19 +16,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 //Core utils
 import AccountIcon from '@material-ui/icons/AccountCircle';
-import MessageIcon from '@material-ui/icons/Message';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 //Style + icons
 import { fade, makeStyles } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 // Struff
 import logo from '../images/logo.png';
 
@@ -85,7 +78,7 @@ export default (props) => {
             >
                 <MessageIcon/>
             </IconButton> */}
-
+            <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
             <IconButton
                 onClick={() => history.push('/match')}
             >
@@ -101,7 +94,6 @@ export default (props) => {
             <IconButton
                 onClick={handleSignout}
             >
-            <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
                 <ExitToAppIcon/>
             </IconButton>
         </>

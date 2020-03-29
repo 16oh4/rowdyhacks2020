@@ -302,7 +302,7 @@ export default (props) => {
         </>
     );
 
-    let stageOne = (
+    let stageOne = ( /* When the user logs in, this gets prompted */
         <>
             <Grid
                 item
@@ -447,8 +447,7 @@ export default (props) => {
 
                     </Grid>
                 </BlockCreator>
-            </ColumnCreator>
-            
+            </ColumnCreator>      
         </RowCreator>
     )
 }
