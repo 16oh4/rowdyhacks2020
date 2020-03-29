@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 import EmojiPeople from "@material-ui/icons/EmojiPeople";
-import Fingerprint from "@material-ui/icons/Fingerprint";
+import Theatres from "@material-ui/icons/Theaters";
 // core components
 import Grid  from "@material-ui/core/Grid";
 import InfoArea from "../components/InfoArea/InfoArea.js";
@@ -50,28 +50,28 @@ export default (props) => {
       <div>
       <Grid // 1 of 3
         container
-        justify = "center"
-        direction = "row"
+        direction="row"
+        justify="center"
+        alignItems="flex-start"
       >
         <Grid
           item
-          xs={12} sm={12} md={4}  
+          xs={12} sm={6} md={4}  
         >
         <InfoArea
-            title="Select from a database of movies and music to match with other people who share the same interests as you!"
-            description=""
+            title="Match with other people who share the same interests as you!"
             icon={Favorite}
             iconColor="info"
             vertical
+            
         />
         </Grid>
         <Grid
           item
-          xs={12} sm={12} md={4}  
+          xs={12} sm={6} md={4}  
         >
         <InfoArea
-            title="Connect with people through direct messaging once matches have been made through common interests."
-            description=""
+            title="Connect with people through direct messaging."
             icon={EmojiPeople}
             iconColor="success"
             vertical
@@ -79,12 +79,11 @@ export default (props) => {
         </Grid>
         <Grid
           item
-          xs={12} sm={12} md={4}  
+          xs={12} sm={6} md={4}  
         >
         <InfoArea
-            title="Text here"
-            description=""
-            icon={Fingerprint}
+            title="Select from a database of movies and music!"
+            icon={Theatres}
             iconColor="danger"
             vertical
         />
