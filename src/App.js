@@ -78,17 +78,27 @@ function App() {
                   />
                 </Route>
 
-                <Route exact path="/chat">
-                  <Chat/>
-                </Route>            
+                {loggedIn ? (
+                  <>
+                    <Route exact path="/chat">
+                      <Chat/>
+                    </Route>            
 
-                <Route exact path="/match">
-                  <Match/>
-                </Route>
+                    <Route exact path="/match">
+                      <Suspense
+                        fallback={<CircularProgress/>}
+                      >
+                        <Match/>
+                      </Suspense>
+                    </Route>
 
-                <Route exact path="/profile">
-                  <Profile/>
-                </Route>            
+                    <Route exact path="/profile">
+                      <Profile/>
+                    </Route>  
+                  </>
+                ) : (
+                  null
+                )}          
 
                 <Route>
                   <ErrorPage/>
