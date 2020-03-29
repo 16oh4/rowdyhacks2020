@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 // @material-ui/icons
-import Favorite from "@material-ui/icons/Chat";
-import EmojiPeople from "@material-ui/icons/VerifiedUser";
+import Favorite from "@material-ui/icons/Favorite";
+import EmojiPeople from "@material-ui/icons/EmojiPeople";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 // core components
 import Grid  from "@material-ui/core/Grid";
