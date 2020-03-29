@@ -335,6 +335,7 @@ export default (props) => {
                             className={classes.actionButton}
                             onClick={onDislikeClick} 
                             src={cross} 
+                            style={{width:"70px"}}
                             alt='alternate'
                         />
                         <img 

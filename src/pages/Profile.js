@@ -433,9 +433,7 @@ export default (props) => {
 
     const matchesBlock = (
         <>
-            <BlockCreator
-                title="Your matches"
-            >
+            <BlockCreator title="Your matches">
                 <List>
                     {getMatches()}
                 </List>
