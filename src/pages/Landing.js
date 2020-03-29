@@ -42,17 +42,8 @@ export default (props) => {
           item
           xs={12} sm={12} md={8}  
         >
-          <Typography
-            variant="h4"
-          >
-            Let's talk about COVID-19
-          </Typography>
-          <Typography
-            variant="body2"
-            className={classes.description}
-          >
-          Social distancing is more important now than ever! Quaranchill is the best place to connect with people who have more in common than you think.
-          </Typography>
+          
+          
           {/* <h5 className={classes.description}>
             
           </h5> */}
