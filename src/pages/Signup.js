@@ -172,7 +172,11 @@ export default (props) => {
             const userData = {
                 phoneNumber: parsedPhoneNumber,
                 createdAt: new Date().toISOString(),
-                likes: []
+                likes: [],
+                displayName: '',
+                age: 23,
+                description: '',
+                city: 'San Antonio'
             };
             
             firebase.firestore().collection('users').doc(userCredential.user.uid).set(userData)

@@ -8,7 +8,6 @@ import heart from '../images/heart.png';
 
 import {
     useFirestoreDocData,
-    useFirestoreDoc,
     useFirestore,
     useUser
 } from 'reactfire';
@@ -29,6 +28,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import {RowCreator, ColumnCreator, BlockCreator} from '../inc/PageCreator';
+import userSchema from '../inc/userSchema';
 
 const reactSwal = withReactContent(swal2);
 
@@ -60,18 +60,17 @@ export default (props) => {
             uid: 'QUARANCHILL'
         }
     });
-    
-    const styles = useStyles();
+
 
     const docRef = useFirestore().collection('users').doc(user.uid);
 
     const docData = useFirestoreDocData(docRef, {
-        startWithValue: {
-            createdAt: '2020-03-28T23:15:19.234Z',
-            likes: [],
-            phoneNumber: '+12100000000',
-            loading: true
-        }
+        // startWithValue: {
+        //     createdAt: '2020-03-28T23:15:19.234Z',
+        //     likes: [],
+        //     phoneNumber: '+12100000000',
+        // }
+        startWithValue: userSchema
     });
 
     // console.log(docData);

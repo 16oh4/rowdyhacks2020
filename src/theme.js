@@ -20,12 +20,6 @@ const styles = {
   card: {
     backgroundColor: palette.containerColor
   },
-  cardContent: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
   typography: {
     color: palette.primary.main,
     textAlign: 'center'
