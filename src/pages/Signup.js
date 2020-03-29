@@ -109,6 +109,7 @@ export default (props) => {
     }
 
     const handleActivationCode = async () => {
+        let userCredential;
         let alertHtml = (
             <>
                 <Typography
@@ -130,7 +131,7 @@ export default (props) => {
         }
 
         try {
-            await firebase.auth().signInWithCredential(phoneCredentialRef.current)
+            userCredential = await firebase.auth().signInWithCredential(phoneCredentialRef.current)
         }
         catch (error) {
             console.log(error);
@@ -154,7 +155,7 @@ export default (props) => {
                 likes: []
             };
             
-            firebase.firestore().collection('users').add(userData)
+            firebase.firestore().collection('users').doc(userCredential.user.uid).set(userData)
             .then(() => {
                 reactSwal.fire({
                     html: alertHtml
@@ -238,7 +239,7 @@ export default (props) => {
                     variant="body1"
                     className={classes.typography}
                 >
-                    Signup using a US phone number
+                    Enter with a US phone number
                 </Typography>
             </Grid>
             <Grid
