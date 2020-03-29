@@ -133,7 +133,7 @@ export default (props) => {
                 image: movie.Poster
             }));
             console.log(`Movies data:\n${moviesData}`);
-            fetch('http://api.deezer.com/editorial/0/charts')
+            fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/editorial/0/charts')
                 .then(res => {
                     return res.json();
                 })
