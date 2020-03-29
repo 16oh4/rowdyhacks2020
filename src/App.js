@@ -89,7 +89,11 @@ function App() {
   const loggedInRoutes = (
     <Switch>
       <Route exact path="/chat/:chatID">
-        <Chat/>
+        <Suspense
+          fallback={<CircularProgress/>}
+        >
+          <Chat/>
+        </Suspense>
       </Route>            
 
       <Route exact path="/match">

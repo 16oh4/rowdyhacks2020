@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "dayjs": "^1.8.23",
     "firebase": "^7.13.1",
     "libphonenumber-js": "^1.7.48",
     "react": "0.0.0-experimental-aae83a4b9",

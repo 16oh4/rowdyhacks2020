@@ -53,15 +53,6 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    listItemText: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-
-        '& .MuiTypography-root': {
-            color: palette.primary.main
-        }
-    }
 }));
 
 export default (props) => {
@@ -387,7 +378,11 @@ export default (props) => {
             const chatDoc = {
                 createdAt: new Date().toISOString(),
                 id: `${match.uid}${user.uid}`,
-                users: [match.uid, user.uid]
+                users: [match.uid, user.uid],
+                displayNames: {
+                    [match.uid]: match.displayName,
+                    [user.uid]: user.displayName
+                }
             }
 
             console.log(JSON.stringify(chatDoc));
