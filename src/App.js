@@ -59,6 +59,9 @@ function App() {
       <Grid
         container
         spacing={4}
+        style={{
+          maxWidth: '100%'
+        }}
       >
         <Grid
           item

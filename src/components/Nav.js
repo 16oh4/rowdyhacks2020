@@ -115,17 +115,17 @@ export default (props) => {
 
     let newIcons = (
         <>
-            <IconButton
+            {/* <IconButton
                 onClick={() => history.push('/')}
             >
                 <HomeIcon/>
-            </IconButton>
+            </IconButton> */}
 
-            <IconButton
+            {/* <IconButton
                 onClick={() => history.push('/signup')}
             >
                 <AssignmentIcon/>
-            </IconButton>
+            </IconButton> */}
         </>
     )
 
