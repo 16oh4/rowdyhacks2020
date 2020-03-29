@@ -83,6 +83,9 @@ export default (props) => {
         currentIndex: 0,
         maxIndex: null,
         liked: [],
+        gamesURI: 'https://api.rawg.io/api/games?dates=2017-01-01,2019-12-31&ordering=-added',
+        nextGamesURI: '',
+        previousGamesURI: '',
     });
 
     const [loading, setLoading] = useState(true);
@@ -110,11 +113,16 @@ export default (props) => {
 
     const getGames = () => {
         setLoading(true);
-        fetch('https://api.rawg.io/api/games?dates=2017-01-01,2019-12-31&ordering=-added')
+        fetch(state.gamesURI)
         .then(res => {
             return res.json();
         })
         .then(data => {
+
+            console.log(data.count);
+            console.log(data.next);
+            console.log(data.previous);
+
 
             const games = data.results.map(game => ({
                 name: game.name,
@@ -129,7 +137,9 @@ export default (props) => {
             setState(prevState => ({
                 ...prevState,
                 games,
-                maxIndex: games.length
+                maxIndex: games.length,
+                previousGamesURI: data.previous,
+                gamesURI: data.next,
             }))
 
             setLoading(false);
@@ -167,6 +177,7 @@ export default (props) => {
             //         </Typography>
             //     )
             // })
+            getGames();
             newIndex = 0;
         }
 
@@ -174,17 +185,17 @@ export default (props) => {
         let newLike = state.games[state.currentIndex];
         // console.log(`Liked game:\n${JSON.stringify(newLike.name)}`)
 
-        let prevLikes = docData.likes.slice(0);
+        // let prevLikes = docData.likes.slice(0);
         let newLikes = [];
         let unique = true;
         
         // console.log(`PREV LIKES SLICED:\n${JSON.stringify(prevLikes)}`);
         
-        if(prevLikes.length === 0) {
+        if(docData.likes.length === 0) {
             newLikes.push(newLike.name)
         }
         else {
-            prevLikes.forEach((prevLike) => {
+            docData.likes.forEach((prevLike) => {
                 // console.log(`Prev like ${prevLike}\nNew like ${newLike.name}\n`)
                 if(prevLike === newLike.name) {
                     unique = false;
@@ -193,10 +204,10 @@ export default (props) => {
             });
 
             if(unique) {
-                newLikes = [...prevLikes, newLike.name];
+                newLikes = [...docData.likes, newLike.name];
             }
             else {
-                newLikes = prevLikes;
+                newLikes = docData.likes;
             }
         }
         // console.log(`PREV LIKES:\n${JSON.stringify(prevLikes)}`);
@@ -205,7 +216,7 @@ export default (props) => {
         setState(prevState => ({
             ...prevState,
             currentIndex: newIndex,
-            liked: newLikes
+            // liked: newLikes
             // liked: [...state.liked, likedGame.name]
         }));
 
