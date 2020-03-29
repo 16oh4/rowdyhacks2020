@@ -350,14 +350,14 @@ export default (props) => {
         chatsColData.forEach(chat => {
             console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
 
-            chat.users.every(chatUser => {
+            chat.users.forEach(chatUser => {
                 console.log(`CURRENT CHATUSER: ${chatUser}`)
                 console.log(`MATCH ID: ${match.uid}`)
                 if(chatUser === match.uid) {
                     console.log('chatuser===match.uid')
                     foundMatch = true;
                     foundChat = chat;
-                    return false;
+                    // return false;
                 }
             })
             // if(foundMatch) {
