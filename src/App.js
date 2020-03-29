@@ -43,11 +43,11 @@ function App() {
   useEffect(() => {
     authObserver.current = firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        console.log('Logged in');
+        // console.log('Logged in');
         setLoggedIn(true);
       }
       else {
-        console.log('Logged out');
+        // console.log('Logged out');
         setLoggedIn(false);
       }
     })

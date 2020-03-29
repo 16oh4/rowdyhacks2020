@@ -103,9 +103,9 @@ export default (props) => {
         ]
     })
 
-    console.log(match.params.chatID);
+    // console.log(match.params.chatID);
 
-    console.log(JSON.stringify(messageColData));
+    // console.log(JSON.stringify(messageColData));
 
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
@@ -118,7 +118,7 @@ export default (props) => {
         })
 
         const matchedUser = filterMatchUser[0];
-        console.log(`matched user: ${matchedUser}`);
+        // console.log(`matched user: ${matchedUser}`);
 
         const messageData = {
             createdAt: new Date().toISOString(),
@@ -128,20 +128,20 @@ export default (props) => {
             message
         };
 
-        console.log(`chat message:\n${JSON.stringify(messageData)}`)
+        // console.log(`chat message:\n${JSON.stringify(messageData)}`)
 
         setLoading(true);
 
         messageColRef.add(messageData)
         .then(docRef => {
-            console.log(`Wrote doc`);
+            // console.log(`Wrote doc`);
 
             setLoading(false);
             setMessage('');
         })
         .catch(error => {
             setLoading(false);
-            console.log(error);
+            // console.log(error);
         })
 
         

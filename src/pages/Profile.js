@@ -374,7 +374,7 @@ export default (props) => {
             history.push(`/chat/${foundChat.id}`)
         }
         else { // create new chat
-            console.log('New chat!!');
+            // console.log('New chat!!');
             
             // console.log(`USER:\n${user.}`)
             const chatDoc = {
@@ -387,7 +387,7 @@ export default (props) => {
                 }
             }
 
-            console.log(JSON.stringify(chatDoc));
+            // console.log(JSON.stringify(chatDoc));
             
             firebase.firestore().collection('chats').doc(chatDoc.id)
             .set(chatDoc)
