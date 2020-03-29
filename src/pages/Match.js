@@ -248,6 +248,7 @@ export default (props) => {
             //     }));
             // })
 
+            getGames();
             
         }
 
@@ -277,6 +278,19 @@ export default (props) => {
         //     liked: docData.likes
         // }));
     }, [])
+
+    // useEffect(() => {
+    //     if(state.games) {
+    //         if(docData.likes[state.currentIndex] === state.games[state.currentIndex]) {
+    //             let nextIndex = (state.currentIndex === state.maxIndex) ? 0: state.currentIndex + 1;
+    //             setState(prevState => ({
+    //                 ...prevState,
+    //                 currentIndex: nextIndex
+    //             }));
+
+    //         }
+    //     }
+    // }, [state.currentIndex])
 
     console.log(`Liked state:\n${JSON.stringify(docData.likes)}`);
 
