@@ -101,7 +101,7 @@ export default (props) => {
 
     let newIcons = (
         <>
-            <IconButton
+            {/* <IconButton
                 onClick={() => history.push('/')}
             >
                 <HomeIcon/>
@@ -111,7 +111,7 @@ export default (props) => {
                 onClick={() => history.push('/signup')}
             >
                 <AssignmentIcon/>
-            </IconButton>
+            </IconButton> */}
 
             {/* <Button // Just the logo for now as a clickable
                 onClick={() => history.push('/')}
