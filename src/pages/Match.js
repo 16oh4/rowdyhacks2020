@@ -3,7 +3,7 @@ import React, {
     useState
 } from 'react';
 // import  CategoryView  from "../components/CategoryView";
-import cross from '../images/x.png';
+import cross from '../images/X.png';
 import heart from '../images/heart.png';
 
 import {
