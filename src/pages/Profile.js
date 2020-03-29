@@ -83,7 +83,10 @@ export default (props) => {
 
     const handleSubmit = () => {
         docRef.update({
-            ...state
+            displayName: state.displayName,
+            city: state.city,
+            age: Number(state.age),
+            description: state.description
         })
         .then(() => {
             reactSwal.fire({
@@ -122,25 +125,25 @@ export default (props) => {
 
         switch(name) {
             case 'displayName':
-                if(!value.match(displayNameRegex)) {
+                if(!value.match(displayNameRegex) || value.length < 1) {
                     errors.displayName = 'Please enter letters and spaces';
                 }
                 else errors.displayName = null;
                 break;
             case 'age':
-                if(!value.match(ageRegex)) {
+                if(!value.match(ageRegex) || value.length < 1) {
                     errors.age = 'Please enter a valid number.';
                 }
                 else errors.age = null;
                 break;
             case 'city':
-                if(!value.match(cityRegex)) {
+                if(!value.match(cityRegex) || value.length < 1) {
                     errors.city = 'Please enter a letters and spaces only.';
                 }
                 else errors.city = null;
                 break;
             case 'description':
-                if(!value.match(descriptionRegex)) {
+                if(!value.match(descriptionRegex) || value.length < 1) {
                     errors.description = 'Please enter letters, numbers, and spaces only.';
                 }
                 else errors.description = null;
