@@ -82,7 +82,7 @@ export default (props) => {
           xs={12} sm={12} md={4}  
         >
         <InfoArea
-            title="Text herer"
+            title="Text here"
             description=""
             icon={Fingerprint}
             iconColor="danger"
