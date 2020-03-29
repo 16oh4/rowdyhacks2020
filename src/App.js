@@ -53,6 +53,67 @@ function App() {
     })
   }, []);
 
+  const loggedOutRoutes = (
+    <Switch>
+    <Route exact path="/">
+      <Grid
+        container
+        spacing={4}
+      >
+        <Grid
+          item
+          xs={12}
+          md={6}
+        >
+          <Landing/>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }}
+        >
+          <Signup
+            loggedIn={loggedIn}
+          />
+        </Grid>
+      </Grid>
+    </Route>
+    </Switch>
+  )
+
+  const loggedInRoutes = (
+    <Switch>
+      <Route exact path="/chat/:chatID">
+        <Chat/>
+      </Route>            
+
+      <Route exact path="/match">
+        <Suspense
+          fallback={<CircularProgress/>}
+        >
+          <Match/>
+        </Suspense>
+      </Route>
+
+      <Route exact path="/profile">
+        <Suspense
+          fallback={<CircularProgress/>}
+        >
+          <Profile/>
+        </Suspense>
+      </Route>  
+
+      <Route>
+        <ErrorPage/>
+      </Route>
+    </Switch>
+  )
+
   return (
     <>
       <CssBaseline/>
@@ -68,36 +129,9 @@ function App() {
             />
           </Suspense>
           <Page>
-            <Switch>
+            
 
-                <Route exact path="/">
-                  <Grid
-                    container
-                    spacing={4}
-                  >
-                    <Grid
-                      item
-                      xs={12}
-                      md={6}
-                    >
-                      <Landing/>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      md={6}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <Signup
-                        loggedIn={loggedIn}
-                      />
-                    </Grid>
-                  </Grid>
-                </Route>
+                
 
                 {/* <Route exact path="/signup">
                   <Signup
@@ -106,32 +140,11 @@ function App() {
                 </Route> */}
 
                 {loggedIn ? (
-                  <>
-                    <Route exact path="/chat">
-                      <Chat/>
-                    </Route>            
-
-                    <Route exact path="/match">
-                      <Suspense
-                        fallback={<CircularProgress/>}
-                      >
-                        <Match/>
-                      </Suspense>
-                    </Route>
-
-                    <Route exact path="/profile">
-                      <Profile/>
-                    </Route>  
-                  </>
+                  loggedInRoutes
                 ) : (
-                  null
-                )}          
+                  loggedOutRoutes
+                )}
 
-                <Route>
-                  <ErrorPage/>
-                </Route>
-
-            </Switch>
           </Page>
           <Footer/>     
         </Router>

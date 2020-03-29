@@ -8,7 +8,6 @@ import heart from '../images/heart.png';
 
 import {
     useFirestoreDocData,
-    useFirestoreDoc,
     useFirestore,
     useUser
 } from 'reactfire';
@@ -21,22 +20,27 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 
-import swal2 from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardHeader from '@material-ui/core/CardHeader';
 
 import {RowCreator, ColumnCreator, BlockCreator} from '../inc/PageCreator';
+import userSchema from '../inc/userSchema';
+
+import swal2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const reactSwal = withReactContent(swal2);
+
 
 const useStyles = makeStyles(({styles, palette}) => createStyles({
     ...styles,
     image: {
         backgroundSize: 'cover',
         maxWidth: '100%',
+        maxHeight: '40vh',
+        height: '40vh'
         // maxHeight: '200px'
     },
     likeDislike: {
@@ -46,7 +50,13 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
         alignItems: 'center'
     },
     actionButton: {
-        maxWidth: '30%'
+        maxWidth: '100px'
+    },
+    cardContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }));
 
@@ -58,18 +68,17 @@ export default (props) => {
             uid: 'QUARANCHILL'
         }
     });
-    
-    const styles = useStyles();
+
 
     const docRef = useFirestore().collection('users').doc(user.uid);
 
     const docData = useFirestoreDocData(docRef, {
-        startWithValue: {
-            createdAt: '2020-03-28T23:15:19.234Z',
-            likes: [],
-            phoneNumber: '+12100000000',
-            loading: true
-        }
+        // startWithValue: {
+        //     createdAt: '2020-03-28T23:15:19.234Z',
+        //     likes: [],
+        //     phoneNumber: '+12100000000',
+        // }
+        startWithValue: userSchema
     });
 
     // console.log(docData);
@@ -81,6 +90,9 @@ export default (props) => {
         currentIndex: 0,
         maxIndex: null,
         liked: [],
+        gamesURI: 'https://api.rawg.io/api/games?dates=2017-01-01,2019-12-31&ordering=-added',
+        nextGamesURI: '',
+        previousGamesURI: '',
     });
 
     const [loading, setLoading] = useState(true);
@@ -108,11 +120,16 @@ export default (props) => {
 
     const getGames = () => {
         setLoading(true);
-        fetch('https://api.rawg.io/api/games?dates=2017-01-01,2019-12-31&ordering=-added')
+        fetch(state.gamesURI)
         .then(res => {
             return res.json();
         })
         .then(data => {
+
+            console.log(data.count);
+            console.log(data.next);
+            console.log(data.previous);
+
 
             const games = data.results.map(game => ({
                 name: game.name,
@@ -127,7 +144,9 @@ export default (props) => {
             setState(prevState => ({
                 ...prevState,
                 games,
-                maxIndex: games.length
+                maxIndex: games.length,
+                previousGamesURI: data.previous,
+                gamesURI: data.next,
             }))
 
             setLoading(false);
@@ -139,45 +158,148 @@ export default (props) => {
         })
     };
 
+    const updateLikes = (newLikes) => {
+        setLoading(true);
+        
+        docRef.update({
+            likes: newLikes
+        })
+        .then(() => {
+            setLoading(false);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     const onLikeClick = () => {
         let newIndex = state.currentIndex + 1;
 
         if(newIndex === state.maxIndex) {
             //TODO: fetch more results
-            reactSwal.fire({
-                html: (
-                    <Typography>
-                        You've reached the end! 
-                    </Typography>
-                )
-            })
+            // reactSwal.fire({
+            //     html: (
+            //         <Typography>
+            //             You've reached the end! 
+            //         </Typography>
+            //     )
+            // })
+            getGames();
             newIndex = 0;
         }
-        let likedGame = state.games[state.currentIndex].name;
-        console.log(`Liked game:\n${JSON.stringify(likedGame)}`)
+
+
+        let newLike = state.games[state.currentIndex];
+        // console.log(`Liked game:\n${JSON.stringify(newLike.name)}`)
+
+        // let prevLikes = docData.likes.slice(0);
+        let newLikes = [];
+        let unique = true;
+        
+        // console.log(`PREV LIKES SLICED:\n${JSON.stringify(prevLikes)}`);
+        
+        if(docData.likes.length === 0) {
+            newLikes.push(newLike.name)
+        }
+        else {
+            docData.likes.forEach((prevLike) => {
+                // console.log(`Prev like ${prevLike}\nNew like ${newLike.name}\n`)
+                if(prevLike === newLike.name) {
+                    unique = false;
+                    // return false;
+                }  
+            });
+
+            if(unique) {
+                newLikes = [...docData.likes, newLike.name];
+            }
+            else {
+                newLikes = docData.likes;
+            }
+        }
+        // console.log(`PREV LIKES:\n${JSON.stringify(prevLikes)}`);
+        // console.log(`NEW LIKES:\n${JSON.stringify(newLikes)}`);
 
         setState(prevState => ({
             ...prevState,
             currentIndex: newIndex,
-            liked: [...state.liked, likedGame]
+            // liked: newLikes
+            // liked: [...state.liked, likedGame.name]
         }));
+
+        updateLikes(newLikes);  
     }
 
     const onDislikeClick = () => {
         let newIndex = state.currentIndex + 1;
+        let currentDislike = state.games[state.currentIndex].name;
+
+
+        if(newIndex === state.maxIndex) {
+
+            newIndex = 0;
+
+            //TODO: fetch more results
+            // reactSwal.fire({
+            //     html: (
+            //         <Typography>
+            //             You've reached the end! 
+            //         </Typography>
+            //     )
+            // })
+            // .then(() => {
+            //     newIndex = 0;
+            //     setState(prevState => ({
+            //         ...prevState,
+            //         currentIndex: newIndex
+            //     }));
+            // })
+
+            getGames();
+            
+        }
+
+        let newLikes = docData.likes.filter(value => {
+            if(value !== currentDislike) {
+                return true;
+            }
+            else if(value === currentDislike) {
+                return false;
+            }
+        });
+
 
         setState(prevState => ({
             ...prevState,
             currentIndex: newIndex
-        }));
+        }))
+
+        updateLikes(newLikes);   
     }
 
     useEffect(()=> {
+        console.log('USE EFFECT')
         getGames();
-        // getMovies("batman")
+        // setState(prevState => ({
+        //     ...prevState,
+        //     liked: docData.likes
+        // }));
     }, [])
 
-    console.log(`Liked state:\n${JSON.stringify(state.liked)}`);
+    // useEffect(() => {
+    //     if(state.games) {
+    //         if(docData.likes[state.currentIndex] === state.games[state.currentIndex]) {
+    //             let nextIndex = (state.currentIndex === state.maxIndex) ? 0: state.currentIndex + 1;
+    //             setState(prevState => ({
+    //                 ...prevState,
+    //                 currentIndex: nextIndex
+    //             }));
+
+    //         }
+    //     }
+    // }, [state.currentIndex])
+
+    console.log(`Liked state:\n${JSON.stringify(docData.likes)}`);
 
 
     const markup = (

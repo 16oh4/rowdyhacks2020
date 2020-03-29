@@ -10,6 +10,8 @@ import Grid  from "@material-ui/core/Grid";
 import Typography  from "@material-ui/core/Typography";
 import InfoArea from "../components/InfoArea/InfoArea.js";
 
+import {RowCreator, BlockCreator, ColumnCreator} from '../inc/PageCreator';
+
 
 const useStyles = makeStyles(({styles, palette}) => ({
   ...styles,
@@ -25,6 +27,9 @@ const useStyles = makeStyles(({styles, palette}) => ({
   },
   description: {
     color: "#999"
+  },
+  grid: {
+    // backgroundColor: palette.secondary.main
   }
 
 }));
@@ -37,10 +42,11 @@ export default (props) => {
     <div className={classes.section}>
       <Grid // Intro to layout
         container justify="center"
+        className={classes.grid}
       >
         <Grid
           item
-          xs={12} sm={12} md={8}  
+          xs={12} sm={12} md={8}
         >
           
           

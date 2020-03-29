@@ -3,6 +3,7 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {useDeviceScales, getScaledProperty} from '../inc/styleFunc';
 
 import womanPhoneImage from '../images/womanPhone.jpg';
+import handsImage from '../images/landingBackground.jpg';
 
 import {
     useLocation
@@ -29,7 +30,7 @@ const useStyles = makeStyles(({palette, styles}) => createStyles({
         get backgroundImage() {
             switch(props.pageLocation) {
                 case '/':
-                    return `url(${womanPhoneImage})`
+                    return `url(${handsImage})`
             }
         },
         backgroundSize: 'cover',
