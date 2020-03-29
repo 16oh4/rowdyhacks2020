@@ -105,7 +105,7 @@ export default (props) => {
         ]
     })
 
-    console.log(`CHATS:\n${JSON.stringify(chatsColData)}`);
+    // console.log(`CHATS:\n${JSON.stringify(chatsColData)}`);
     // console.log(`MATCHES:\n${JSON.stringify(matchesColData)}`);
 
     
@@ -339,13 +339,13 @@ export default (props) => {
         setLoading(true);
 
         chatsColData.forEach(chat => {
-            console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
+            // console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
 
             chat.users.forEach(chatUser => {
-                console.log(`CURRENT CHATUSER: ${chatUser}`)
-                console.log(`MATCH ID: ${match.uid}`)
+                // console.log(`CURRENT CHATUSER: ${chatUser}`)
+                // console.log(`MATCH ID: ${match.uid}`)
                 if(chatUser === match.uid) {
-                    console.log('chatuser===match.uid')
+                    // console.log('chatuser===match.uid')
                     foundMatch = true;
                     foundChat = chat;
                     // return false;
@@ -368,20 +368,22 @@ export default (props) => {
 
         // If this chat is already created, then redirect to chat page
         if(foundMatch) {
-            console.log('Found it!');
-            console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
+            // console.log('Found it!');
+            // console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
             setLoading(false);
             history.push(`/chat/${foundChat.id}`)
         }
         else { // create new chat
             console.log('New chat!!');
+            
+            // console.log(`USER:\n${user.}`)
             const chatDoc = {
                 createdAt: new Date().toISOString(),
                 id: `${match.uid}${user.uid}`,
                 users: [match.uid, user.uid],
                 displayNames: {
                     [match.uid]: match.displayName,
-                    [user.uid]: user.displayName
+                    [user.uid]: docData.displayName
                 }
             }
 
@@ -398,37 +400,12 @@ export default (props) => {
             })
         }
 
-
-
-
-        // firebase.firestore().collection('chats')
-        // .where('users', 'array-contains', user.uid)
-        // .get()
-        // .then(querySnapshot => {
-        //     if(querySnapshot.empty) {
-        //         //CREATE NEW CHAT
-        //         console.log('EMPTY')
-        //     }
-        //     else{
-        //         querySnapshot.forEach((docSnapshot, index) => {
-        //             if(docSnapshot.exists) {
-        //                 console.log('Empty snapshot at index: ' + index);
-        //             }
-        //             else {
-        //                 console.log(`DOC SNAPSHOT:\n${JSON.stringify(docSnapshot.data)}`)
-        //             }
-        //         })
-        //     }
-        // })
-        // .catch(error => console.log(error))
     }
 
     const getMatches = () => {
         let listItemArr = [];
 
         matchesColData.forEach(match => {
-            // console.log(match.uid)
-            // console.log(user.uid);
             if(match.uid !== user.uid)
                 listItemArr.push(
                     <ListItem

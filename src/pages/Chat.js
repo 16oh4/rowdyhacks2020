@@ -38,6 +38,32 @@ import firebase from 'firebase/app';
 
 const useStyles = makeStyles(({palette, styles}) => createStyles({
     ...styles,
+    listItem: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    listItemTextRight: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+
+        '& .MuiTypography-root': {
+            color: palette.primary.main,
+            textAlign: 'right'
+        }
+    },
+    listItemTextLeft: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+
+        '& .MuiTypography-root': {
+            color: palette.primary.main,
+            textAlign: 'left'
+        }
+    }
 }))
 
 
@@ -45,7 +71,9 @@ export default (props) => {
     const match = useRouteMatch('/chat/:chatID');
     const classes = useStyles();
     const user = useUser(undefined, {
-        startWithValue: userSchema
+        startWithValue: {
+            uid: 'QUARANCHILL'
+        }
     });
 
     dayjs.extend(relativeTime);
@@ -126,20 +154,26 @@ export default (props) => {
         const messageItems = messageColData.map(message => {
             const userIsSender = message.sender === user.uid ? true : false;
 
+            const senderDisplayName = chatDocData.displayNames[message.sender];
+
             let userSenderMarkup = (
                 <ListItem
                     key={message.createdAt}
+                    className={classes.listItem}
                 >
-                    {/* <ListItemText
-                        primary={user.displayName}
-                    /> */}
                     <ListItemText
                         primary={message.message}
                         secondary={`${dayjs(message.createdAt).fromNow(true)} ago`}
-                        className={classes.listItemText}
+                        className={classes.listItemTextLeft}
+                        style={{
+                            width: '80%'
+                        }}
                     />
                     <ListItemText
-                        primary={user.displayName}
+                        primary={senderDisplayName}
+                        style={{
+                            width: '20%'
+                        }}
                     />
                 </ListItem>
             )
@@ -147,15 +181,25 @@ export default (props) => {
             let userReceiverMarkup = (
                 <ListItem
                     key={message.createdAt}
+                    className={classes.listItem}
                 >
                     <ListItemText
-                        primary={message.senderDisplayName}
-                        className={classes.listItemText}
+                        primary={senderDisplayName}
+                        style={{
+                            width: '20%'
+                        }}
+                        // className={classes.listItemText}
                     />
                     <ListItemText
                         primary={message.message}
                         secondary={`${dayjs(message.createdAt).fromNow(true)} ago`}
-                        className={classes.listItemText}
+                        className={classes.listItemTextRight}
+                        style={{
+                            width: '80%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-end'
+                        }}
                     />
                 </ListItem>
             )
@@ -180,7 +224,7 @@ export default (props) => {
                     ratio={12}
                 >
                     <BlockCreator
-                        title="Chat"
+                        title={`Chat`}
                     >
                         <div
                             style={{
