@@ -18,7 +18,14 @@ const useStyles = makeStyles(({palette, styles}) => createStyles({
         padding: '15px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        get justifyContent() {
+            switch(props.pageLocation) {
+                case '/':
+                    return 'center';
+                default:
+                    return 'flex-start';
+            }
+        },
         get backgroundImage() {
             switch(props.pageLocation) {
                 case '/':

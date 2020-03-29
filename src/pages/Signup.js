@@ -14,8 +14,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import axios from 'axios';
-import swal2 from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -29,6 +27,8 @@ import InfoArea from "../components/InfoArea/InfoArea.js";
 
 import { useHistory } from 'react-router-dom';
 
+import swal2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 const reactSwal = withReactContent(swal2);
 
 
