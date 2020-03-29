@@ -153,14 +153,53 @@ export default (props) => {
             })
             newIndex = 0;
         }
-        let likedGame = state.games[state.currentIndex].name;
-        console.log(`Liked game:\n${JSON.stringify(likedGame)}`)
+
+
+        let newLike = state.games[state.currentIndex];
+        // console.log(`Liked game:\n${JSON.stringify(newLike.name)}`)
+
+        let prevLikes = state.liked.slice(0);
+        let newLikes = [];
+        let unique = true;
+        
+        console.log(`PREV LIKES SLICED:\n${JSON.stringify(prevLikes)}`);
+        
+        if(prevLikes.length === 0) {
+            newLikes.push(newLike.name)
+        }
+        else {
+            prevLikes.forEach((prevLike) => {
+                console.log(`Prev like ${prevLike}\nNew like ${newLike.name}\n`)
+                if(prevLike === newLike.name) {
+                    unique = false;
+                    // return false;
+                }  
+            });
+
+            if(unique) {
+                newLikes = [...prevLikes, newLike.name];
+            }
+            else {
+                newLikes = prevLikes;
+            }
+        }
+
+        
+        
+
+
+        console.log(`PREV LIKES:\n${JSON.stringify(prevLikes)}`);
+        console.log(`NEW LIKES:\n${JSON.stringify(newLikes)}`);
 
         setState(prevState => ({
             ...prevState,
             currentIndex: newIndex,
-            liked: [...state.liked, likedGame]
+            liked: newLikes
+            // liked: [...state.liked, likedGame.name]
         }));
+
+        
+
     }
 
     const onDislikeClick = () => {
