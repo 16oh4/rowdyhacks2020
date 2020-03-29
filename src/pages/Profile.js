@@ -345,17 +345,25 @@ export default (props) => {
         let foundMatch = false;
         let foundChat;
 
-        chatsColData.every(chat => {
+        setLoading(true);
+
+        chatsColData.forEach(chat => {
             console.log(`CURRENT CHAT:\n${JSON.stringify(chat)}`)
 
             chat.users.every(chatUser => {
+                console.log(`CURRENT CHATUSER: ${chatUser}`)
+                console.log(`MATCH ID: ${match.uid}`)
                 if(chatUser === match.uid) {
+                    console.log('chatuser===match.uid')
                     foundMatch = true;
                     foundChat = chat;
                     return false;
                 }
             })
-            if(foundMatch) return false;
+            // if(foundMatch) {
+            //     console.log('returning from found match true');
+            //     return false;
+            // }
 
             // if(chat.users[0] === user.uid || chat.users[1] === user.uid) {
             //     console.log('Found user!');
@@ -371,18 +379,33 @@ export default (props) => {
         if(foundMatch) {
             console.log('Found it!');
             console.log(`CHAT:\n${JSON.stringify(foundChat)}`);
+            setLoading(false);
             history.push(`/chat/${foundChat.id}`)
         }
         else { // create new chat
             console.log('New chat!!');
             const chatDoc = {
                 createdAt: new Date().toISOString(),
-
+                id: `${match.uid}${user.uid}`,
+                users: [match.uid, user.uid]
             }
-            // firebase.firestore().collection('chats')
-            // .add()
-            // firebase.firestore()
+
+            console.log(JSON.stringify(chatDoc));
+            
+            firebase.firestore().collection('chats').doc(chatDoc.id)
+            .set(chatDoc)
+            .then(() => {
+                setLoading(false);
+                history.push(`/chat/${chatDoc.id}`);
+            })
+            .catch(error => {
+                setLoading(false);
+            })
         }
+
+
+
+
         // firebase.firestore().collection('chats')
         // .where('users', 'array-contains', user.uid)
         // .get()
@@ -454,7 +477,7 @@ export default (props) => {
                 ratio={12}
             >
                 {profileBlock}
-                {matchesBlock}
+                {loading ? <CircularProgress/> : matchesBlock}
             </ColumnCreator>
         </RowCreator>
     )
