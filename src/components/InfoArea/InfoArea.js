@@ -22,7 +22,7 @@ const useStyles = makeStyles(({styles, palette}) => ({
       },
       description: {
         color: "#999"
-      },
+      }, //Added to allow layout to be used on the side  
       infoArea: {
         display: "flex",
         alignItems: "center",
