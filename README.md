@@ -1,4 +1,4 @@
-This project was bootstrapped with 4 teammates tears, passions, laughs, and excitements.
+This project was bootstrapped with 4 teammates tears, passions, laughs, and excitements!!
 
 Quaranchill is a place where you can:
 
