@@ -88,7 +88,7 @@ function App() {
 
   const loggedInRoutes = (
     <Switch>
-      <Route exact path="/chat">
+      <Route exact path="/chat/:chatID">
         <Chat/>
       </Route>            
 

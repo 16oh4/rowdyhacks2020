@@ -11,8 +11,13 @@ import {
 import {
     useFirestoreDocData,
     useFirestore,
-    useUser
+    useUser,
+    useFirestoreCollectionData
 } from 'reactfire';
+
+import {
+    useHistory
+} from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -21,8 +26,17 @@ import Typography from '@material-ui/core/Typography';
 import {RowCreator, ColumnCreator, BlockCreator} from '../inc/PageCreator';
 
 import userSchema from '../inc/userSchema';
+import chatSchema from '../inc/chatSchema';
+
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import swal2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -37,11 +51,21 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    listItemText: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+
+        '& .MuiTypography-root': {
+            color: palette.primary.main
+        }
+    }
 }));
 
 export default (props) => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     const user = useUser(undefined, {
         startWithValue: {
@@ -49,11 +73,49 @@ export default (props) => {
         }
     });
 
-    const docRef = useFirestore().collection('users').doc(user.uid);
+    const docRef = useFirestore()
+    .collection('users')
+    .doc(user.uid);
 
     const docData = useFirestoreDocData(docRef, {
         startWithValue: userSchema
     });
+
+    const initCheckLikes =  docData.likes.length > 10 ? (
+        docData.likes.slice(0, 10) || console.log('here')
+    ) : docData.likes || console.log('here');
+
+    console.log(`Init Check Likes:\n${initCheckLikes}`);
+
+    const [checkLikes, setCheckLikes] = useState(initCheckLikes);
+
+    console.log(`Check Likes:\n${checkLikes}`);
+
+
+    const matchesColRef = useFirestore()
+    .collection('users')
+    .where('likes', 'array-contains-any', checkLikes);
+
+    const matchesColData = useFirestoreCollectionData(matchesColRef, {
+        startWithValue: [
+            userSchema
+        ]
+    });
+
+    const chatsColRef = useFirestore()
+    .collection('chats')
+    .where('users', 'array-contains', user.uid);
+
+    const chatsColData = useFirestore(chatsColRef, {
+        startWithvalue: [
+            chatSchema
+        ]
+    })
+
+    console.log(`MATCHES:\n${JSON.stringify(matchesColData)}`);
+
+    
+
 
     const [state, setState] = useState({
         displayName: docData.displayName,
@@ -166,6 +228,7 @@ export default (props) => {
     const profileBlock = (
         <BlockCreator
             classes={classes}
+            title="Profile Details"
         >
             {/* <form
                 name="profile_form"
@@ -273,9 +336,50 @@ export default (props) => {
         </BlockCreator>
     )
 
+    const handleChat = (match) => {
+        history.push(`/chat/${match.uid}`);
+    }
+
+    const getMatches = () => {
+        let listItemArr = [];
+
+        matchesColData.forEach(match => {
+            console.log(match.uid)
+            console.log(user.uid);
+            if(match.uid !== user.uid)
+                listItemArr.push(
+                    <ListItem
+                        button={true}
+                        onClick={() => handleChat(match)}
+                        key={`key_${match.uid}`}
+                    >
+                        <ListItemText
+                            primary={match.displayName}
+                            secondary={`${match.age} years old. ${match.city}`}
+                            className={classes.listItemText}
+                        />
+
+
+                        <ListItemIcon
+                        >
+                            <ChatIcon/>
+                        </ListItemIcon>
+                    </ListItem>
+                );
+        })
+
+        return listItemArr;
+    }
+
     const matchesBlock = (
         <>
-
+            <BlockCreator
+                title="Your matches"
+            >
+                <List>
+                    {getMatches()}
+                </List>
+            </BlockCreator>
         </>
     )
 
@@ -285,6 +389,7 @@ export default (props) => {
                 ratio={12}
             >
                 {profileBlock}
+                {matchesBlock}
             </ColumnCreator>
         </RowCreator>
     )

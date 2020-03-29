@@ -6,5 +6,7 @@ export default {
     displayName: 'QUARANCHILL',
     age: 23,
     description: 'RowdyHacks 2020!!',
-    city: 'San Antonio'
+    city: 'San Antonio',
+    likes: ['Red Dead Redemption 2'],
+    uid: 'QUARANCHILL'
 }

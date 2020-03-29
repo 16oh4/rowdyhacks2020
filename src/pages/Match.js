@@ -50,7 +50,13 @@ const useStyles = makeStyles(({styles, palette}) => createStyles({
         alignItems: 'center'
     },
     actionButton: {
-        maxWidth: '30%'
+        maxWidth: '100px'
+    },
+    cardContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 }));
 
