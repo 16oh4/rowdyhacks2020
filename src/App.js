@@ -22,6 +22,8 @@ import Footer from './components/Footer/Footer';
 import Page from './pages/Page';
 
 import firebase from 'firebase/app';
+// Img 
+import Motto from './images/motto.png';
 
 // import './App.css';
 import theme from './theme';
@@ -56,7 +58,9 @@ function App() {
   const landingRoute = (
     <Route exact path="/">
       <Grid
-        container
+        container direction="row" 
+        justify="center" 
+        alignItems="center"
         spacing={4}
         style={{
           maxWidth: '100%',
@@ -64,16 +68,22 @@ function App() {
         }}
       >
         <Grid
+            item
+            xs={12}
+            justify="center" 
+            alignItems="center"
+          > 
+            <img src={Motto} alt='alternate'/>
+          </Grid>
+        <Grid
           item
           xs={12}
-          md={6}
         >
           <Landing/>
         </Grid>
         <Grid
           item
           xs={12}
-          md={6}
           style={{
             display: 'flex',
             flexDirection: 'column',

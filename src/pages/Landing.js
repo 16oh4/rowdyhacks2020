@@ -12,7 +12,6 @@ import InfoArea from "../components/InfoArea/InfoArea.js";
 
 import {RowCreator, BlockCreator, ColumnCreator} from '../inc/PageCreator';
 
-
 const useStyles = makeStyles(({styles, palette}) => ({
   ...styles,
   section: {
@@ -40,23 +39,7 @@ export default (props) => {
     const classes = useStyles();
     return (
     <div className={classes.section}>
-      <Grid // Intro to layout
-        container justify="center"
-        className={classes.grid}
-      >
-        <Grid
-          item
-          xs={6} sm={12} md={8}
-        >
-          
-          
-          {/* <h5 className={classes.description}>
-            
-          </h5> */}
-        </Grid>
-      </Grid>
-      <div>
-      <Grid // 1 of 3
+      <Grid // Column next to login prompt
         container
         direction="column"
         justify="center"
@@ -100,7 +83,6 @@ export default (props) => {
         />
         </Grid>
       </Grid>
-      </div>
     </div>
     )
 }
