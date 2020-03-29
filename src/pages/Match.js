@@ -20,17 +20,19 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 
-import swal2 from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardHeader from '@material-ui/core/CardHeader';
 
 import {RowCreator, ColumnCreator, BlockCreator} from '../inc/PageCreator';
 import userSchema from '../inc/userSchema';
 
+import swal2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 const reactSwal = withReactContent(swal2);
+
 
 const useStyles = makeStyles(({styles, palette}) => createStyles({
     ...styles,

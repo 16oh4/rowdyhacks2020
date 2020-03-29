@@ -21,7 +21,13 @@ import Typography from '@material-ui/core/Typography';
 import {RowCreator, ColumnCreator, BlockCreator} from '../inc/PageCreator';
 
 import userSchema from '../inc/userSchema';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+import swal2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const reactSwal = withReactContent(swal2);
 
 const useStyles = makeStyles(({styles, palette}) => createStyles({
     ...styles,
@@ -56,6 +62,15 @@ export default (props) => {
         description: docData.description
     })
 
+    const [errors, setErrors] = useState({
+        displayName: null,
+        city: null,
+        age: null,
+        description: null
+    })
+
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         setState({
             displayName: docData.displayName,
@@ -67,7 +82,82 @@ export default (props) => {
 
 
     const handleSubmit = () => {
-        
+        docRef.update({
+            ...state
+        })
+        .then(() => {
+            reactSwal.fire({
+                html: (
+                    <Typography
+                        className={classes.typography}
+                    >
+                        Your profile has been updated!
+                    </Typography>
+                )
+            })
+        })
+        .catch(() => {
+            reactSwal.fire({
+                html: (
+                    <Typography
+                        className={classes.typography}
+                    >
+                        Ooops! Some error ocurred. Please try again
+                    </Typography>
+                )
+            })
+        })
+    }
+
+    const displayNameRegex = /^[a-zA-Z ]+$/;
+    const ageRegex = /^[0-9]+$/;
+    const descriptionRegex = /^[a-zA-Z 0-9]+$/;
+    const cityRegex = /^[a-zA-Z ]+$/;
+
+    const handleChange = (e) => {
+        const {value, name} = e.target;
+        const errors = {
+
+        }
+
+        switch(name) {
+            case 'displayName':
+                if(!value.match(displayNameRegex)) {
+                    errors.displayName = 'Please enter letters and spaces';
+                }
+                else errors.displayName = null;
+                break;
+            case 'age':
+                if(!value.match(ageRegex)) {
+                    errors.age = 'Please enter a valid number.';
+                }
+                else errors.age = null;
+                break;
+            case 'city':
+                if(!value.match(cityRegex)) {
+                    errors.city = 'Please enter a letters and spaces only.';
+                }
+                else errors.city = null;
+                break;
+            case 'description':
+                if(!value.match(descriptionRegex)) {
+                    errors.description = 'Please enter letters, numbers, and spaces only.';
+                }
+                else errors.description = null;
+                break;
+            default:
+                break;
+        }
+
+        setState( prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            ...errors
+        }))
     }
 
     const profileBlock = (
@@ -90,48 +180,68 @@ export default (props) => {
                         item
                         xs={12}
                     >
-                        <Typography>
+                        <Typography
+                            className={classes.typography}
+                        >
                             Your display name
                         </Typography>
                         <TextField
                             name="displayName"
-                            value={docData.displayName}
+                            value={state.displayName}
+                            helperText={errors.displayName}
+                            className={classes.textField}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
                         item
                         xs={12}
                     >
-                        <Typography>
+                        <Typography
+                            className={classes.typography}
+                        >
                             Your age
                         </Typography>
                         <TextField
                             name="age"
-                            value={docData.age}
+                            value={state.age}
+                            helperText={errors.age}
+                            className={classes.textField}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
                         item
                         xs={12}
                     >
-                        <Typography>
+                        <Typography
+                            className={classes.typography}
+                        >
                             Your description
                         </Typography>
                         <TextField
                             name="description"
-                            value={docData.description}
+                            value={state.description}
+                            helperText={errors.description}
+                            className={classes.textField}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
                         item
                         xs={12}
                     >
-                        <Typography>
+                        <Typography
+                            className={classes.typography}
+                        >
                             Your city
                         </Typography>
                         <TextField
                             name="city"
-                            value={docData.city}
+                            value={state.city}
+                            helperText={errors.city}
+                            className={classes.textField}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
@@ -142,7 +252,10 @@ export default (props) => {
                             onClick={handleSubmit}
                             className={classes.button}
                             disabled={
-                                false
+                                errors.displayName ||
+                                errors.age ||
+                                errors.description ||
+                                errors.city
                             }
                         >
                             <Typography
