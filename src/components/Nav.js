@@ -13,6 +13,7 @@ import firebase from 'firebase/app';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 //Core utils
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import MessageIcon from '@material-ui/icons/Message';
@@ -20,22 +21,14 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-//Style
-
-//Crap
-
+//Style + icons
 import { fade, makeStyles } from '@material-ui/core/styles';
-
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 // Struff
 import logo from '../images/logo.png';
 
@@ -108,6 +101,7 @@ export default (props) => {
             <IconButton
                 onClick={handleSignout}
             >
+            <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
                 <ExitToAppIcon/>
             </IconButton>
         </>
@@ -126,6 +120,11 @@ export default (props) => {
             >
                 <AssignmentIcon/>
             </IconButton> */}
+            <Button // Just the logo for now as a clickable
+                onClick={() => history.push('/')}
+            >
+                <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
+            </Button>
         </>
     )
 
@@ -167,41 +166,6 @@ export default (props) => {
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Menu>
     );
-  
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = ( // Handles mobile user
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={mobileMenuId}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
-      > 
-        <MenuItem> 
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
-    );
-
-
 
     return(
         <AppBar
@@ -213,7 +177,7 @@ export default (props) => {
                 className={classes.toolBar}
             >
                 { loggedIn ? authIcons : newIcons }
-                <img style={{widht:150,height:100}} src={logo} alt='alternate'/>
+                
             </Toolbar>
         </AppBar>
     )

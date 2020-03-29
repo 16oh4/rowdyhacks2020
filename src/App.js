@@ -76,10 +76,10 @@ function App() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
         >
-          <Signup
+          <Signup // Signup is being placed here
             loggedIn={loggedIn}
           />
         </Grid>
