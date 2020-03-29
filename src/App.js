@@ -7,6 +7,7 @@ import React, {
 // import logo from './logo.svg';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -70,14 +71,39 @@ function App() {
             <Switch>
 
                 <Route exact path="/">
-                  <Landing/>
+                  <Grid
+                    container
+                    spacing={4}
+                  >
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                    >
+                      <Landing/>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      <Signup
+                        loggedIn={loggedIn}
+                      />
+                    </Grid>
+                  </Grid>
                 </Route>
 
-                <Route exact path="/signup">
+                {/* <Route exact path="/signup">
                   <Signup
                     loggedIn={loggedIn}
                   />
-                </Route>
+                </Route> */}
 
                 {loggedIn ? (
                   <>

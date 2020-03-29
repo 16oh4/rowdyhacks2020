@@ -79,7 +79,7 @@ export default function Footer(props) {
             target="_blank"
           >
             16oh4
-          </a>{" "}
+          </a>{" and friends "}
           for a better web.
         </div>
       </div>

@@ -7,6 +7,7 @@ import EmojiPeople from "@material-ui/icons/EmojiPeople";
 import Theatres from "@material-ui/icons/Theaters";
 // core components
 import Grid  from "@material-ui/core/Grid";
+import Typography  from "@material-ui/core/Typography";
 import InfoArea from "../components/InfoArea/InfoArea.js";
 
 
@@ -41,18 +42,28 @@ export default (props) => {
           item
           xs={12} sm={12} md={8}  
         >
-          <h2 className={classes.title}>Let{"'"}s talk about COVID-19</h2>
-          <h5 className={classes.description}>
-            Social distancing is more important now than ever! Quaranchill is the best place to connect with people who have more in common than you think.
-          </h5>
+          <Typography
+            variant="h4"
+          >
+            Let's talk about COVID-19
+          </Typography>
+          <Typography
+            variant="body2"
+            className={classes.description}
+          >
+          Social distancing is more important now than ever! Quaranchill is the best place to connect with people who have more in common than you think.
+          </Typography>
+          {/* <h5 className={classes.description}>
+            
+          </h5> */}
         </Grid>
       </Grid>
       <div>
       <Grid // 1 of 3
         container
-        direction="row"
+        direction="column"
         justify="center"
-        alignItems="flex-start"
+        alignItems="center"
       >
         <Grid
           item

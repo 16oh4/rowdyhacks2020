@@ -409,9 +409,9 @@ export default (props) => {
 
     return (
         <RowCreator>
-            <ColumnCreator>
+            {/* <ColumnCreator>
                 {bufferText}
-            </ColumnCreator>
+            </ColumnCreator> */}
             <ColumnCreator
                 ratio={12}
             >
